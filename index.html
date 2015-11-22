@@ -1,0 +1,291 @@
+---
+layout: default
+title: Home
+---
+
+<div class="sec" id="differential">
+
+  <h1>Differential Line</h1>
+
+  <p>The Differential Line [<a
+    href="https://github.com/inconvergent/differential-line">github</a>]
+  algorithm is inspired by the way a number of biological things in nature
+  grows. Among other things it is made to mimic the growth of the human brain,
+  as well as a great number of plants. In brief; we start of with a number of
+  connected nodes in a circle. Gradually we introduce new nodes on the
+  line—prioritizing segments where the curve bends more sharply. Over time the
+  curve grows increasingly intricate, but it never self-intersects.</p>
+
+    <p>If we start with a different shape, and draw the outside position of the
+    object for each growth step, we can get an entirely different kind of
+    system. This system shares the 3d like illusion created by the <a
+      href="http://inconvergent.net/#orbitals">Orbitals</a> algorithm.</p>
+
+  <img class="painting" src="img/differential_d.jpg" title="differential"
+  alt="differential">
+
+  <img class="painting" src="img/differential_c.jpg" title="differential"
+  alt="differential">
+
+  <img class="painting" src="img/differential_f.jpg" title="differential"
+  alt="differential">
+
+  <img class="painting" src="img/differential_line_b.jpg"
+  title="differential.step" alt="differential.step">
+
+  <img class="painting" src="img/differential_line_c.jpg"
+  title="differential.step" alt="differential.step">
+
+  <img class="painting" src="img/differential_line_d.jpg"
+  title="differential.step" alt="differential.step">
+
+</div>
+
+<div class="sec" id="leaf3">
+
+  <h1>Leaf3</h1>
+
+  <p>Leaf3 [<a href="https://github.com/inconvergent/leaf3">github</a>] is a
+  three dimensional implementation of the <a
+    href="http://algorithmicbotany.org/papers/venation.sig2005.html">algorithm</a>
+  that was the inspiration behind the various <a
+    href="http://inconvergent.net/#network">network algorithms</a> I've been
+  working with.</p>
+
+  <img class="painting" src="img/leaf3a.jpg" title="leaf3"/>
+
+  <img class="painting" src="img/leaf3b.jpg" title="leaf3"/>
+
+  <img class="painting" src="img/leaf3c.jpg" title="leaf3"/>
+
+</div>
+
+<div class="sec" id="differential-surface">
+
+  <h1>Differential Surface</h1>
+
+  <p>Differential Surface [<a
+    href="https://github.com/inconvergent/experimental-surface">github</a>] is
+  a three dimensional implementation of the same ideas (more or less) that
+  inspired the <a href="#differential">Differential</a>
+  algorithm, which I wrote a while back.</a></p>
+
+  <p>The faces of the mesh are affected by their neighboring faces over
+  time—rejecting non-neighboring faces that are too close, and keeping a
+  comfortable distance to their actual neighbors. The surface is gradually
+  remeshed to account for it's growing surface area.</p>
+
+  <p>Another interesting addition to this system is to let the system grow
+  towards an imagined nutrition source, or light source, of some kind. This
+  results in strange fungi-like objects.</p>
+
+  <img class="painting" src="img/expsurf_e.jpg" title="differential.surface"/>
+
+  <img class="painting" src="img/expsurf_a.jpg" title="differential.surface"/>
+
+  <img class="painting" src="img/expsurf_b.jpg" title="differential.surface"/>
+
+  <img class="painting" src="img/expsurf_d.jpg" title="differential.surface"/>
+
+  <img class="painting" src="img/expsurf_h.jpg" title="differential.surface"/>
+
+  <img class="painting" src="img/expsurf_i.jpg" title="differential.surface"/>
+
+  <img class="painting" src="img/expsurf_j.jpg" title="differential.surface"/>
+
+</div>
+
+<div class="sec" id="orbitals">
+
+  <h1>Orbitals</h1>
+
+  <p>Orbitals [<a
+      href="https://github.com/inconvergent/orbitals_speedup">github</a>] is
+    inspired by the naive optimization process that <a
+      href="http://complexification.net">Jared Tarbell</a> has implemented in
+    his "<a
+      href="http://www.complexification.net/gallery/machines/happyPlace/index.php">Happy
+      Place</a>" algorithm. Nodes are created in some, more or less structured
+    arangement, before they start to make friends with their neighbors.
+    Gradually the nodes make an effort to get closer to their friends, whilst
+    at the same time keeping a comfortable distance from the nodes they have
+    not befriended.  The visualization is made by drawing lines betweeen pairs
+    of friends as they walk around the canvas. Thus the final image is a
+    history of all the friendships.</p>
+
+  <img class="painting" src="img/orbitals_ba.jpg" title="orbitals"
+  alt="orbitals">
+
+  <img class="painting" src="img/orbitals_bb.jpg" title="orbitals"
+  alt="orbitals">
+
+  <img class="painting" src="img/orbitals_aa.jpg" title="orbitals"
+  alt="orbitals">
+
+  <img class="painting" src="img/imgb.jpg" title="orbitals"
+  alt="orbitals">
+
+  <img class="painting" src="img/imgm.jpg" title="orbitals, box"
+  alt="orbitals, box">
+
+  <img class="painting" src="img/imgc.jpg" title="orbitals"
+  alt="orbitals">
+
+  <img class="painting" src="img/imgd.jpg" title="orbitals"
+  alt="orbitals">
+
+  <img class="painting" src="img/imgn.jpg" title="orbitals, lines"
+  alt="orbitals, lines">
+
+  <img class="painting" src="img/imgo.jpg" title="orbitals, lines"
+  alt="orbitals, lines">
+
+  <img class="painting" src="img/imgl.jpg" title="orbitals"
+  alt="orbitals">
+
+</div>
+
+<div class="sec" id="meshx">
+
+  <h1>Meshx</h1>
+
+  <p>Meshx [<a href="https://github.com/inconvergent/meshx">github</a>] is my
+    first attempt at a three dimensional generative algorithm. The algorithm
+    can grow from any number of seeds; either along another surface geometry,
+    or freely in any direction. The algorithm grows by choosing random
+    triangles on the surface of the structure and appending a triangular
+    pyramid to that face. This gives the resulting geometry a ragged-looking
+    appearance. I had no particular biological process in mind when I wrote
+    this algorithm, but it turns out that it creates structures that look a lot
+    like corals.</p>
+
+  <img class="painting" src="img/meshxa.jpg" title="meshx"/>
+
+  <img class="painting" src="img/meshxb.jpg" title="meshx"/>
+
+  <img class="painting" src="img/meshxc.jpg" title="meshx"/>
+
+</div>
+
+
+<div class="sec" id="tree">
+
+  <h1>Tree</h1>
+
+  <p>One of the first attempts I made at generative algorithms was a copy of <a
+      href="http://www.complexification.net/gallery/machines/treeGarden/">this</a>
+    great little application. Recently I decided it was about time that I
+    revisited this project, and below are a few of the results. As opposed to
+    the algorithm in the link, my trees are generated pixel by pixel. That is,
+    there are no pre-drawn parts. [<a
+      href="https://github.com/inconvergent/tree">github</a>] </p>
+
+  <p>As you can see, if you examine the images a little, the trees take shapes
+    that er neither realistic nor possible. Yet they look very much like trees
+    at first glance.</p>
+
+  <p>The background is another algorithm of mine called <a
+    href="#linetrace">Linetrace</a>.</p>
+
+  <img class="painting" src="img/linetrace_tree_a.jpg" title="tree.linetrace"
+  alt="tree.linetrace">
+
+  <img class="painting" src="img/tree_c.jpg" title="tree" alt="tree">
+
+  <img class="painting" src="img/tree_d.jpg" title="tree" alt="tree">
+
+</div>
+
+<div class="sec" id="differential-mesh">
+
+  <h1>Differential Mesh</h1>
+
+  <p>Differential Mesh [<a
+    href="https://github.com/inconvergent/differential-mesh">github</a>] is an
+  extension of the <a href="#hyphae">Hyphae</a> algorithm.  I started working
+  on it with the intention of mimicking the growth of (certain types of)
+  lichen. The results, to me, are equal parts crystal-like and biological.</p>
+
+  <img class="painting" src="img/lichen_d.jpg" title="lichen, sand clutter"
+  alt="lichen, sand clutter">
+
+  <img class="painting" src="img/lichen_a.jpg" title="lichen, varying color"
+  alt="lichen, varying color">
+
+  <img class="painting" src="img/lichen_e.jpg" title="lichen, distributed
+  sources" alt="lichen, distributed sources">
+
+</div>
+
+<div class="sec" id="hyphae">
+
+  <h1>Hyphae</h1>
+
+  <p>Hyphae [<a
+      href="https://github.com/inconvergent/hyphae_ani">github</a>] is an
+    algorithm I wrote in an attempt to mimick the growth of roots. You can see
+    a video of how the algorithm grows <a
+      href="http://youtu.be/IMVEs4o4-GI">here</a>. The algorithm centers around
+    letting circles grow "next to each other" in such a way that no two circles
+    overlap. The results are incredibly intricate and fractal-like, and they
+    can be tweaked in a great number of ways.</p>
+
+  <img class="painting" src="img/imgv.jpg" title="hyphae" alt="hyphae">
+
+  <img class="painting" src="img/imgr.jpg" title="hyphae" alt="hyphae">
+
+  <img class="painting" src="img/imgs.jpg" title="hyphae" alt="hyphae">
+
+  <img class="painting" src="img/hyphae_a.jpg" title="hyphae" alt="hyphae">
+
+  <img class="painting" src="img/hyphae_b.jpg" title="hyphae" alt="hyphae">
+
+</div>
+
+<div class="sec" id="linetrace">
+
+  <h1>Linetrace</h1>
+
+  <p>After watching John Franzen drawing his incredibly fascinating "<a
+    href="http://www.johnfranzen.com/art/EACH_LINE_ONE_BREATH.html">Each Line
+    One Breath</a>" drawings, I wanted to try doing somthing similar using
+  code. After many failed results, I also ended up with a few versions I rather
+  liked. They can hardly be said to behave in the same way as Franzen's
+  drawings, as was the initial goal, however I find them equally
+  interesting.</p>
+
+  <img class="painting" src="img/imgp.jpg" title="linetrace" alt="linetrace">
+
+  <img class="painting" src="img/imgq.jpg" title="linetrace" alt="linetrace">
+
+  <img class="painting" src="img/imgu.jpg" title="linetrace" alt="linetrace">
+
+  <img class="painting" src="img/tracepath_sand.jpg" title="linetrace,
+  sandstroke" alt="linetrace, sandstroke">
+
+  <img class="painting" src="img/tracepath_sand2.jpg" title="linetrace,
+  sandstroke" alt="linetrace, sandstroke">
+
+</div>
+
+<div class="sec" id="network">
+
+  <h1>Network</h1>
+
+  <p>At some point I stumbled upon this great <a style="color:#555"
+    href="http://algorithmicbotany.org/papers/venation.sig2005.html">algorithm</a>
+  by Adam Runions et al. I have since spent some time replicating the algorithm
+  itself, as well as trying to recreate the behaviour in other ways. As usual
+  some of the results are similar, whereas others ... not so much.</p>
+
+  <img class="painting" src="img/imgh.jpg" title="network, leaf"
+  alt="network, leaf">
+
+  <img class="painting" src="img/imgi.jpg" title="network"
+  alt="network">
+
+  <img class="painting" src="img/imgj.jpg" title="network"
+  alt="network">
+
+</div>
+
