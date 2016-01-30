@@ -2,13 +2,11 @@
 #
 # Use of `relative_permalinks` ensures post links from the index work properly.
 permalink:           pretty
-relative_permalinks: true
 
 # Setup
 title:               Inconvergent
 tagline:             A study of generative algorithms
 url:                 http://inconvergent.net/
-paginate:            1
 baseurl:             ""
 
 # Assets
@@ -25,13 +23,13 @@ author:
   email:             inconvergent@gmail.com
 
 # Custom vars
-version:             2.0.0
+version:             3.1.1
 github:
   repo:              https://github.com/inconvergent
 
 pages_list:
-  Interactive: '/interactive'
   Generative: '/generative'
+  Interactive: '/interactive'
   About: '/about'
 
 generative-title: 'On Generative Algorithms'

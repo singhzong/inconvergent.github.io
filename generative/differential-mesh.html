@@ -9,17 +9,43 @@ title: On Generative Algorithms - Differential Mesh
 
 <h2>Differential Mesh</h2>
 
-<p>When I had gotten Differential Line working the obvious next step was to try
-to create something similar in three dimensions.  On obvious alternative is to
-make the line move in three dimensions, but that did not really seem all that
-appealing. Instead I chose to go for a combination of the attraction/rejection
-behaviour of Differential Line, and the growing behaviour of Hyphae.
-Essentially I wanted to make a (triangular) mesh that grew outward without
-self-intersecting or colliding. Doing this directly in three dimensions seemed
-a little daunting, so I started with a two dimensional version.</p>
+<a class="ghlink"
+href="https://github.com/inconvergent/differential-mesh">Differential Mesh on
+Github</a>
+
+<p>When I had gotten <a href="../differential-line">Differential Line</a>
+working the obvious next step was to try to create something similar in three
+dimensions; and one alternative is to make the line itself move in
+three dimensions. However, that did not really seem all that appealing. Instead I
+chose to go for a combination of the attraction/rejection behaviour of <a
+  href="../differential-line">Differential Line</a>, and the growing behaviour
+of Hyphae. Essentially I wanted to make a (triangular) mesh that grew outward
+without self-intersecting or colliding. Doing this directly in three dimensions
+seemed a little daunting, so I started with a two dimensional version.</p>
 
 <img src="/img/generative/differential-mesh3-tri.gif" alt="differential mesh
-ani" title="differential mesh triangles" />
+ani" title="differential mesh triangles"/>
+
+<p>In the animation above you can see that new triangles are added to the
+outside if the existing mesh.  They are added in such a way that they don't
+collide with existing parts of the mesh. I use a very naive collision detection
+where I check if a potential new vertex is too close to any existing vertices
+before adding it. In addition all vertices still behave similarly to the
+vertices in Differential Line; that is, they try to get  as much space around
+themselves as possible, whilst remaining close enough to their neighbors.</p>
+
+<p>The key thing to get this to work is to have the mesh do various
+self-balancing operations as it grows. There are a few things you can try:</p>
+
+<ul>
+  <li>Split edges that are too long.</li>
+  <li>Avoid inserting new vertices where the vertex density is too high.</li>
+  <li>Flip edges to reduce the length of the edge.</li>
+  <li>Add a force that makes the triangles attempt to be roughly
+    equilateral.</li>
+
+</ul>
+<p>The animation above employs a combination of all of these.</p>
 
 <p>Now we scale down the triangle size and add some structure.</p>
 
@@ -41,7 +67,7 @@ going to spend a lot of resources checking edges that you can't do anything
 with.</p>
 
 <p>There is a pretty obvious solution to this problem. (And, as usual, when I
-say obvious I mean that it took me a few months to realize) Instead of picking
+say obvious, I mean that it took me a few months to realize) Instead of picking
 random edges and testing if you can grow a new triangle from it, you can use
 food sources. First you randomly position food sources in the domain.  Then you
 have something happen each time an edge in the structure hits one of these food
@@ -62,6 +88,6 @@ dimensional illusion.</p>
 mesh still" title="differential mesh rose" />
 
 <a class="paginator prev" href="../differential-line">Previous: Differential Line</a>
+<a class="paginator next" href="../differential-mesh-3d">Next: Differential Mesh 3D</a>
 
 </div>
-
