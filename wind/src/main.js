@@ -1,199 +1,261 @@
-var camera;
-var renderer;
-var offset;
-var $container;
-var controls;
-var stats;
+var camera
+var renderer
+var offset
+var $container
+var controls
+var stats
 
-var mouseX, mouseY, worldMouseX, worldMouseY;
+var mouseX, mouseY, worldMouseX, worldMouseY
 
-var P;
-var timeout = null;
+var P
+var timeout = null
 
-var winWidth = window.innerWidth;
-var winHeight = window.innerHeight;
-var viewRatio = winWidth/winHeight;
-var pixelRatio = window.devicePixelRatio || 1;
+var winWidth = window.innerWidth
+var winHeight = window.innerHeight
+var viewRatio = winWidth/winHeight
+var pixelRatio = window.devicePixelRatio || 1
 
-var resolution = 512;
-var size = 1500;
+var resolution = 512
+var size = 1500
 
-var eventQueue = [];
+// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
+// MIT license
+;(function() {
+    var lastTime = 0
+    var vendors = ['ms', 'moz', 'webkit', 'o']
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame']
+        window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
+                                   || window[vendors[x]+'CancelRequestAnimationFrame']
+    }
 
-window.requestAnimFrame = (function(){
-  return  window.requestAnimationFrame ||
-          window.webkitRequestAnimationFrame ||
-          window.mozRequestAnimationFrame ||
-          function(callback){
-            window.setTimeout(callback,1000/60);
-          };
-})();
+    if (!window.requestAnimationFrame)
+        window.requestAnimationFrame = function(callback, element) {
+            var currTime = new Date().getTime()
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime))
+            var id = window.setTimeout(function() { callback(currTime + timeToCall) },
+              timeToCall)
+            lastTime = currTime + timeToCall
+            return id
+        }
 
+    if (!window.cancelAnimationFrame)
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id)
+        }
+}())
 
-$(function() {
-  var timer_id;
+;(function() {
+  var timer_id
   $(window).resize(function() {
-      clearTimeout(timer_id);
+      clearTimeout(timer_id)
       timer_id = setTimeout(function() {
-        windowAdjust();
-      }, 300);
-  });
-});
-
+        windowAdjust()
+      }, 300)
+  })
+})
 
 function windowAdjust() {
 
-  winWidth = window.innerWidth;
-  winHeight = window.innerHeight;
-  offset = $container.offset();
-  pixelRatio = window.devicePixelRatio || 1;
+  winWidth = window.innerWidth
+  winHeight = window.innerHeight
+  offset = $container.offset()
+  pixelRatio = window.devicePixelRatio || 1
 
-  renderer.setPixelRatio(pixelRatio);
-  renderer.setSize(winWidth,winHeight);
+  renderer.setPixelRatio(pixelRatio)
+  renderer.setSize(winWidth,winHeight)
 
-  camera.aspect = winWidth/winHeight;
-  camera.updateProjectionMatrix();
+  camera.aspect = winWidth/winHeight
+  camera.updateProjectionMatrix()
 
-  console.log('window', winWidth,winHeight);
-  console.log('pixel ratio', pixelRatio);
+  console.log('window', winWidth,winHeight)
+  console.log('pixel ratio', pixelRatio)
 
-  viewRatio = window.innerWidth/window.innerHeight;
-  console.log('screen ratio', viewRatio);
+  viewRatio = window.innerWidth/window.innerHeight
+  console.log('screen ratio', viewRatio)
 }
-
 
 $.when(
   $.ajax({
-    url: 'shaders/grid.frag',
+    url: 'shaders/geo.frag',
     dataType: 'text'
   }),
   $.ajax({
-    url: 'shaders/grid.vert',
-    dataType: 'text'
-  }),
-  $.ajax({
-    url: 'shaders/gridClone.frag',
-    dataType: 'text'
-  }),
-  $.ajax({
-    url: 'shaders/gridClone.vert',
-    dataType: 'text'
-  }),
-  $.ajax({
-    url: 'shaders/plane.frag',
-    dataType: 'text'
-  }),
-  $.ajax({
-    url: 'shaders/plane.vert',
+    url: 'shaders/geo.vert',
     dataType: 'text'
   })
 ).done(function(
-  gridFrag,
-  gridVert,
-  gridCloneFrag,
-  gridCloneVert,
-  planeFrag,
-  planeVert
+  geoFrag,
+  geoVert
 ){
 
   if (!Detector.webgl){
-    Detector.addGetWebGLMessage();
+    Detector.addGetWebGLMessage()
   }
 
   $(document).ready(function(){
 
-    console.log('start');
+    console.log('start')
 
-    $container = $('#box');
+    $container = $('#box')
 
     renderer = new THREE.WebGLRenderer({
       alpha: true,
       preserveDrawingBuffer: false
-    });
-    renderer.autoClear = true;
-    $container.append(renderer.domElement);
+    })
+    renderer.autoClear = true
+    $container.append(renderer.domElement)
 
     camera = new THREE.PerspectiveCamera(
       40,
       winWidth/winHeight,
       1,
       5000
-    );
+    )
 
-    scene = new THREE.Scene();
+    uniforms = {
+      itt: {
+        type: 'f',
+        value:  0
+      },
+      mode: {
+        type: 'f',
+        value: 1.0
+      },
+      screenTexture: {
+        type: "t",
+        value: null
+      },
+      heightTexture: {
+        type: "t",
+        value: null
+      },
+      depthTexture: {
+        type: "t",
+        value: null
+      },
+      bgTexture: {
+        type: "t",
+        value: null
+      },
+      window: {
+        type: '2f',
+        value: [winWidth, winHeight]
+      },
+      kerSize: {
+        type: 'f',
+        value: 10
+      },
+      pixelRatio: {
+        type: 'f',
+        value: pixelRatio
+      }
+    }
 
-    var camTarget = new THREE.Vector3(0,0,0);
-    var camStart = new THREE.Vector3(0,-1700,800);
-    camera.position.x = camStart.x;
-    camera.position.y = camStart.y;
-    camera.position.z = camStart.z;
-    camera.lookAt(camTarget);
+    scene = new THREE.Scene()
 
-    camera.aspect = viewRatio;
-    camera.updateProjectionMatrix();
+    var camTarget = new THREE.Vector3(0,0,0)
+    var camStart = new THREE.Vector3(0,-1700,800)
+    camera.position.x = camStart.x
+    camera.position.y = camStart.y
+    camera.position.z = camStart.z
+    camera.lookAt(camTarget)
 
-    renderer.setPixelRatio(pixelRatio);
-    renderer.setSize(winWidth,winHeight);
+    camera.aspect = viewRatio
+    camera.updateProjectionMatrix()
 
-    scene.add(camera);
+    renderer.setPixelRatio(pixelRatio)
+    renderer.setSize(winWidth,winHeight)
 
-    windowAdjust();
+    scene.add(camera)
 
-    controls = new THREE.OrbitControls(camera);
+    windowAdjust()
+
+    controls = new THREE.OrbitControls(camera)
     if (controls){
-      controls.rotateSpeed = 1.0;
-      controls.zoomSpeed = 1.2;
-      controls.panSpeed = 1.0;
-      controls.noZoom = false;
-      controls.noPan = false;
-      //controls.autoRotate = true;
-      controls.staticMoving = true;
-      controls.dynamicDampingFactor = 0.3;
-      controls.keys = [65,83,68];
-      controls.target.x = camTarget.x;
-      controls.target.y = camTarget.y;
-      controls.target.z = camTarget.z;
+      controls.rotateSpeed = 1.0
+      controls.zoomSpeed = 1.2
+      controls.panSpeed = 1.0
+      controls.noZoom = false
+      controls.noPan = false
+      //controls.autoRotate = true
+      controls.staticMoving = true
+      controls.dynamicDampingFactor = 0.3
+      controls.keys = [65,83,68]
+      controls.target.x = camTarget.x
+      controls.target.y = camTarget.y
+      controls.target.z = camTarget.z
     }
 
-    //stats = new Stats();
+    stats = new Stats()
     if (stats){
-      stats.domElement.style.position = 'absolute';
-      stats.domElement.style.bottom = '0px';
-      stats.domElement.style.left = '0px';
-      stats.domElement.style.zIndex = 100;
-      $container.append(stats.domElement);
+      stats.domElement.style.position = 'absolute'
+      stats.domElement.style.bottom = '0px'
+      stats.domElement.style.left = '0px'
+      stats.domElement.style.zIndex = 100
+      $container.append(stats.domElement)
     }
 
-    var planeMat = new THREE.ShaderMaterial({
-        vertexShader: planeVert[0],
-        fragmentShader: planeFrag[0],
+    var normalMat = new THREE.MeshNormalMaterial()
+
+    var geoMat = new THREE.ShaderMaterial({
+        vertexShader: geoVert[0],
+        fragmentShader: geoFrag[0],
+        uniforms: uniforms,
         transparent: true,
-    });
-    planeMat.side = THREE.DoubleSide;
+    })
+    //planeMat.side = THREE.DoubleSide
 
-    var plane = new THREE.PlaneBufferGeometry(size,size);
-    var quad = new THREE.Mesh(plane, planeMat);
-    scene.add(quad);
+    //var plane = new THREE.PlaneBufferGeometry(size,size)
+    //var planeMesh = new THREE.Mesh(plane, planeMat)
+    //scene.add(planeMesh)
+    //
 
-    renderer.setClearColor(new THREE.Color(0xAA0000), 1.0);
+    var numCube = 10
+    var spread = 1000
+    var size = 20
+    for (var k=0; k<numCube; k++){
+      for (var j=0; j<numCube; j++){
+        for (var i=0; i<numCube; i++){
+          var box = new THREE.CubeGeometry(size,size,size)
+          var boxMesh = new THREE.Mesh(box, geoMat)
+          boxMesh.position.x = -spread*0.5 + i*spread/numCube
+          boxMesh.position.y = -spread*0.5 + j*spread/numCube
+          boxMesh.position.z = -spread*0.5 + k*spread/numCube
+          boxMesh.rotation.x = Math.PI/(i/numCube)
+          boxMesh.rotation.y = Math.PI/(j/numCube)
+          boxMesh.rotation.z = Math.PI/(k/numCube)
+          scene.add(boxMesh)
+        }
+      }
+    }
 
-    var itt = 0;
+
+    renderer.setClearColor(new THREE.Color(0x000000), 1.0)
+
+    var itt = 0
     function animate(){
-      itt += 1;
-      console.log(itt);
-      window.requestAnimFrame(animate);
+      itt += 1
+
+      if (itt%10==0){
+        console.log(itt)
+      }
 
       if (controls){
-        controls.update();
+        controls.update()
       }
       if (stats){
-        stats.update();
+        stats.update()
       }
 
-      renderer.setSize(winWidth,winHeight);
-      renderer.render(scene, camera);
+      //renderer.setSize(winWidth,winHeight)
+      renderer.render(scene, camera)
+      window.requestAnimationFrame(animate)
     }
 
-    animate();
-  });
-});
+    animate()
+  })
+})
+
