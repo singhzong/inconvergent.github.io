@@ -5,18 +5,17 @@ var $container
 var controls
 var stats
 
-var mouseX, mouseY, worldMouseX, worldMouseY
+var winWidth = window.innerWidth;
+var winHeight = window.innerHeight;
+var viewRatio = winWidth/winHeight;
 
-var P
-var timeout = null
+var rinit = 1000
 
-var winWidth = window.innerWidth
-var winHeight = window.innerHeight
-var viewRatio = winWidth/winHeight
-var pixelRatio = window.devicePixelRatio || 1
+var pixelRatio = window.devicePixelRatio || 1;
+var viewWinWidth = 2.2*rinit;
+var viewWinHeight = viewWinWidth / viewRatio;
+console.log('screen ratio', viewRatio, viewWinWidth, viewWinHeight);
 
-var resolution = 512
-var size = 1500
 
 // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
 // http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
@@ -59,22 +58,27 @@ var size = 1500
 
 function windowAdjust() {
 
-  winWidth = window.innerWidth
-  winHeight = window.innerHeight
-  offset = $container.offset()
-  pixelRatio = window.devicePixelRatio || 1
+  winWidth = window.innerWidth;
+  winHeight = window.innerHeight;
+  offset = $container.offset();
+  pixelRatio = window.devicePixelRatio || 1;
 
-  renderer.setPixelRatio(pixelRatio)
-  renderer.setSize(winWidth,winHeight)
+  uniforms.pixelRatio.value = pixelRatio;
+  uniforms.window.value = [winWidth, winHeight];
 
-  camera.aspect = winWidth/winHeight
-  camera.updateProjectionMatrix()
+  renderer.setPixelRatio(pixelRatio);
+  renderer.setSize(winWidth,winHeight);
 
-  console.log('window', winWidth,winHeight)
-  console.log('pixel ratio', pixelRatio)
+  camera.aspect = winWidth/winHeight;
+  camera.updateProjectionMatrix();
 
-  viewRatio = window.innerWidth/window.innerHeight
-  console.log('screen ratio', viewRatio)
+  console.log('window', winWidth,winHeight);
+  console.log('pixel ratio', pixelRatio);
+
+  viewRatio = window.innerWidth/window.innerHeight;
+  viewWinWidth = 2*rinit;
+  viewWinHeight = viewWinHeight / viewRatio;
+  console.log('screen ratio', viewRatio, viewWinWidth, viewWinHeight);
 }
 
 $.when(
@@ -85,10 +89,20 @@ $.when(
   $.ajax({
     url: 'shaders/geo.vert',
     dataType: 'text'
+  }),
+  $.ajax({
+    url: 'shaders/screen.frag',
+    dataType: 'text'
+  }),
+  $.ajax({
+    url: 'shaders/screen.vert',
+    dataType: 'text'
   })
 ).done(function(
   geoFrag,
-  geoVert
+  geoVert,
+  screenFrag,
+  screenVert
 ){
 
   if (!Detector.webgl){
@@ -108,6 +122,16 @@ $.when(
     renderer.autoClear = true
     $container.append(renderer.domElement)
 
+    cameraScreen = new THREE.OrthographicCamera(
+      window.innerWidth/-2,
+      window.innerWidth/2,
+      window.innerHeight/2,
+      window.innerHeight/-2,
+      0,
+      500
+    );
+    cameraScreen.position.z = 100;
+
     camera = new THREE.PerspectiveCamera(
       40,
       winWidth/winHeight,
@@ -115,46 +139,8 @@ $.when(
       5000
     )
 
-    uniforms = {
-      itt: {
-        type: 'f',
-        value:  0
-      },
-      mode: {
-        type: 'f',
-        value: 1.0
-      },
-      screenTexture: {
-        type: "t",
-        value: null
-      },
-      heightTexture: {
-        type: "t",
-        value: null
-      },
-      depthTexture: {
-        type: "t",
-        value: null
-      },
-      bgTexture: {
-        type: "t",
-        value: null
-      },
-      window: {
-        type: '2f',
-        value: [winWidth, winHeight]
-      },
-      kerSize: {
-        type: 'f',
-        value: 10
-      },
-      pixelRatio: {
-        type: 'f',
-        value: pixelRatio
-      }
-    }
-
     scene = new THREE.Scene()
+    sceneScreen = new THREE.Scene();
 
     var camTarget = new THREE.Vector3(0,0,0)
     var camStart = new THREE.Vector3(0,-1700,800)
@@ -170,8 +156,79 @@ $.when(
     renderer.setSize(winWidth,winHeight)
 
     scene.add(camera)
+    sceneScreen.add(cameraScreen);
 
-    windowAdjust()
+    uniforms = {
+      itt: {
+        type: 'f',
+        value:  0
+      },
+      mode: {
+        type: 'f',
+        value: 0.0
+      },
+      screenTexture: {
+        type: "t",
+        value: null
+      },
+      heightTexture: {
+        type: "t",
+        value: null
+      },
+      depthTexture: {
+        type: "t",
+        value: null
+      },
+      window: {
+        type: '2f',
+        value: [winWidth, winHeight]
+      },
+      viewWindow: {
+        type: '2f',
+        value: [viewWinWidth, viewWinHeight]
+      },
+      light: {
+        type: '4f',
+        value: [10000, 10000, 10000, 0.0]
+      },
+      kerSize: {
+        type: 'f',
+        value: 10
+      },
+      pixelRatio: {
+        type: 'f',
+        value: pixelRatio
+      }
+    }
+
+    // TODO: fix size
+    var screenTexture = new THREE.WebGLRenderTarget(
+      Math.floor(winWidth*pixelRatio),
+      Math.floor(winHeight*pixelRatio), {
+        minFilter: THREE.LinearFilter,
+        magFilter: THREE.NearestFilter,
+        format: THREE.RGBAFormat }
+    )
+
+    var heightTexture = new THREE.WebGLRenderTarget(
+      Math.floor(winWidth*pixelRatio),
+      Math.floor(winHeight*pixelRatio), {
+        minFilter: THREE.LinearFilter,
+        magFilter: THREE.NearestFilter,
+        format: THREE.RGBAFormat
+      }
+    )
+
+    var depthTexture = new THREE.WebGLRenderTarget(
+      Math.floor(winWidth*pixelRatio),
+      Math.floor(winHeight*pixelRatio), {
+        minFilter: THREE.LinearFilter,
+        magFilter: THREE.NearestFilter,
+        format: THREE.RGBAFormat
+      }
+    )
+
+
 
     controls = new THREE.OrbitControls(camera)
     if (controls){
@@ -206,12 +263,22 @@ $.when(
         uniforms: uniforms,
         transparent: true,
     })
-    //planeMat.side = THREE.DoubleSide
+    var screenMaterial = new THREE.ShaderMaterial({
+        vertexShader: screenVert[0],
+        fragmentShader: screenFrag[0],
+        uniforms: uniforms,
+        transparent: true
+    });
 
-    //var plane = new THREE.PlaneBufferGeometry(size,size)
-    //var planeMesh = new THREE.Mesh(plane, planeMat)
-    //scene.add(planeMesh)
-    //
+    windowAdjust()
+
+    var screenPlane = new THREE.PlaneBufferGeometry(
+      winWidth,
+      winHeight
+    );
+    screenQuad = new THREE.Mesh(screenPlane, screenMaterial);
+    screenQuad.position.z = -100;
+    sceneScreen.add(screenQuad);
 
     var numCube = 10
     var spread = 1000
@@ -224,9 +291,9 @@ $.when(
           boxMesh.position.x = -spread*0.5 + i*spread/numCube
           boxMesh.position.y = -spread*0.5 + j*spread/numCube
           boxMesh.position.z = -spread*0.5 + k*spread/numCube
-          boxMesh.rotation.x = Math.PI/(i/numCube)
-          boxMesh.rotation.y = Math.PI/(j/numCube)
-          boxMesh.rotation.z = Math.PI/(k/numCube)
+          //boxMesh.rotation.x = Math.PI/(i/numCube)
+          //boxMesh.rotation.y = Math.PI/(j/numCube)
+          //boxMesh.rotation.z = Math.PI/(k/numCube)
           scene.add(boxMesh)
         }
       }
@@ -235,11 +302,12 @@ $.when(
 
     renderer.setClearColor(new THREE.Color(0x000000), 1.0)
 
-    var itt = 0
+    var itt = 0.0
     function animate(){
-      itt += 1
+      itt += 1.0
+      uniforms.itt.value = itt
 
-      if (itt%10==0){
+      if (itt%10===0){
         console.log(itt)
       }
 
@@ -251,7 +319,32 @@ $.when(
       }
 
       //renderer.setSize(winWidth,winHeight)
-      renderer.render(scene, camera)
+      //renderer.render(scene, camera)
+
+      // render differential maps
+      renderer.setClearColor(new THREE.Color(0x808080), 1.0)
+      uniforms.mode.value = 2.0
+      renderer.render(scene, camera, depthTexture, true)
+      uniforms.depthTexture.value = depthTexture
+
+      uniforms.mode.value = 1.0
+
+      renderer.setClearColor(new THREE.Color(0x000000), 1.0)
+
+      uniforms.screenTexture.value = screenTexture;
+
+      // render scene to texture
+      renderer.setClearColor(new THREE.Color(0xFFFF00), 0.0)
+      uniforms.mode.value = 0.0
+      renderer.render(scene, camera, screenTexture, true)
+
+      //// render texture to screen
+      renderer.setClearColor(new THREE.Color(0xFFFF00), 0.0);
+      uniforms.mode.value = 0.0;
+      renderer.render(scene, camera, screenTexture, true);
+
+      renderer.render(sceneScreen, cameraScreen);
+
       window.requestAnimationFrame(animate)
     }
 

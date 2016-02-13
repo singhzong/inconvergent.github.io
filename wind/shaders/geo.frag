@@ -11,6 +11,8 @@ varying vec3 vNormal;
 varying vec3 vView;
 varying vec3 vLight;
 
+uniform vec4 light;
+
 uniform sampler2D bgTexture;
 
 
@@ -81,15 +83,6 @@ float snoise(vec2 v)
 }
 /*ASHIMA END*/
 
-//float levels(float a, float l){
-  //return floor(l*a)/l;
-//}
-
-//float bandedLevels(float a, float l){
-  //float high = floor(l*a);
-  //return mod(high,2.0)*high/l;
-//}
-
 vec3 effect(vec3 I, vec3 N, vec3 L, vec3 V){
   vec3 ind = vec3(2.5,2.5,2.0)/50.0;
   vec3 ref = clamp(abs(refract(V,N,1.0)),0.0,1.0);
@@ -99,23 +92,11 @@ vec3 effect(vec3 I, vec3 N, vec3 L, vec3 V){
 
 vec3 fog(float vdist, vec3 I, vec3 V, vec3 L, vec3 N, float h){
 
-  vec3 fogColor = vec3(1.0);
-  float b = 0.000004;
-
-  //float fogFar = 70000.0;
-  //float fogNear = 10000.0;
-  //if (vdist>fogFar){
-    //return fogColor;
-  //}
-  //float dens = sqrt(clamp((fogFar-vdist)/(fogFar-fogNear),
-                    //0.0,1.0));
+  vec3 fogColor = vec3(0.0);
+  float b = 0.0009;
 
   float dens = 1.0-exp(-(vdist*b));
-  float VdL = max(dot(V,N),0.0);
-  vec3 fc = mix(fogColor,
-                vec3(0.8,0.85,0.85),
-                1.0-pow(VdL,0.4));
-  return mix(I,fc,dens);
+  return mix(I,fogColor,dens);
 }
 
 float getRdV(float lndn, vec3 n, vec3 ln, vec3 vn){
@@ -138,11 +119,11 @@ vec3 phong(float vdist, float ldist, vec3 c, vec3 v, vec3 l, vec3 n){
   vec3 ka = c;
 
   //// diffuse
-  const vec3 id = vec3(0.8);
+  const vec3 id = vec3(10.0);
   vec3 kd = c;
 
   //// specular
-  const vec3 is = vec3(0.1);
+  const vec3 is = vec3(0.0);
   vec3 ks = c;
   float shiny = 1.0;
 
@@ -203,13 +184,15 @@ void main(){
   if (mode < 1.0){ // *0*
 
     //opacity = 0.7;
+    vec3 vp = vPosition*10.0;
+    float n = snoise(vp.xy) + snoise(vp.zx) + snoise(vp.zy);
 
     C = vec3(1.0);
-    I = phong(vdist,ldist,C,V,L,N);
+    //I = phong(vdist,ldist,C,V,L,N);
+    I = vec3(n);
     //I = banding(I, I*0.3, vdist);
-    //I = fog(vdist,I,V,L,N,vPosition.z);
+    I = fog(vdist,I,V,L,N,vPosition.z);
 
-    //I = 0.5 + 0.5*L;
 
   }
   else if (mode < 2.0){ // *1* // render height difference map

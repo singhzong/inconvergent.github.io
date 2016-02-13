@@ -2,11 +2,10 @@
 
 uniform vec2 window;
 uniform float pixelRatio;
-uniform vec2 mouse;
+
 uniform sampler2D screenTexture;
 uniform sampler2D heightTexture;
 uniform sampler2D depthTexture;
-uniform sampler2D bgTexture;
 
 const float kerSize = 5.0;
 
@@ -27,17 +26,6 @@ vec3 post(vec3 I){
   return  I;
 }
 
-vec4 naiveReflect(vec2 here, sampler2D tex){
-  if (here.y<0.5){
-    vec2 refl = here;
-    refl.y = 1.0 - refl.y;
-    return mix(texture2D(tex, refl), texture2D(tex,here), 0.9);
-  }
-  else{
-    return texture2D(tex, here);
-  }
-}
-
 vec4 LIC(vec2 here, sampler2D tex, sampler2D fieldTex, float mult){
 
   vec2 hd;
@@ -48,8 +36,8 @@ vec4 LIC(vec2 here, sampler2D tex, sampler2D fieldTex, float mult){
 
   for (float flip=-1.0;flip<2.0;flip+=2.0){
     for (float i=0.0;i<kerSize;i++){
-      //p += texture2D(tex, xy);
-      p += naiveReflect(xy, tex);
+      p += texture2D(tex, xy);
+      //p += naiveReflect(xy, tex);
       hd = texture2D(fieldTex, xy).xy;
       xy = xy + flip*(hd.xy-0.5)/0.5*mult*pixelRatio;
     }
@@ -67,18 +55,17 @@ void main(){
   vec4 rgba;
   vec2 here = gl_FragCoord.xy/window/pixelRatio;
 
-  if (here.x<0.5 - mouse.x/window.x){ // left
-    rgba = naiveReflect(here, screenTexture);
-    I = texture2D(bgTexture, here).xyz;
-    I = mix(I, rgba.xyz, rgba.a);
-    I = post(I);
-  }
-  else{ // right
+  if (here.x<0.2){
+    I = vec3(here.xy,0.0);
+  }else{
+    //I = texture2D(screenTexture, here).xyz;
+
     rgba = LIC(here, screenTexture, depthTexture, -0.0016);
-    I = texture2D(bgTexture, here).xyz;
-    I = mix(I, rgba.xyz, rgba.a);
-    I = post(I);
+    //I = texture2D(bgTexture, here).xyz;
+    //I = mix(I, rgba.xyz, rgba.a);
+    I = post(rgba.rgb);
   }
+
 
   gl_FragColor = vec4(
     I,
