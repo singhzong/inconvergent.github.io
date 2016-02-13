@@ -10,7 +10,8 @@ uniform vec4 light;
 void main(){
 
   vPosition = vec3(modelMatrix * vec4(position,1.));
-  vNormal = vec3(modelMatrix * vec4(normal,1.));
+  //vNormal = normalize(vec3(modelMatrix * vec4(normal,1.)));
+  vNormal = normal;
   vView = vPosition - cameraPosition;
   vLight = vPosition - light.xyz;
 

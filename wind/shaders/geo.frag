@@ -83,6 +83,10 @@ float snoise(vec2 v)
 }
 /*ASHIMA END*/
 
+float rand(vec2 co){
+  return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
 vec3 effect(vec3 I, vec3 N, vec3 L, vec3 V){
   vec3 ind = vec3(2.5,2.5,2.0)/50.0;
   vec3 ref = clamp(abs(refract(V,N,1.0)),0.0,1.0);
@@ -115,11 +119,11 @@ float getRdV(float lndn, vec3 n, vec3 ln, vec3 vn){
 vec3 phong(float vdist, float ldist, vec3 c, vec3 v, vec3 l, vec3 n){
 
   //// ambient
-  const vec3 ia = vec3(0.04);
+  const vec3 ia = vec3(0.5);
   vec3 ka = c;
 
   //// diffuse
-  const vec3 id = vec3(10.0);
+  const vec3 id = vec3(0.5);
   vec3 kd = c;
 
   //// specular
@@ -177,26 +181,28 @@ void main(){
   ldist = length(vLight);
   vdist = length(vView);
 
-  N = normalize(vNormal);
+  N = vNormal;
   L = normalize(vLight);
   V = normalize(vView);
 
   if (mode < 1.0){ // *0*
 
-    //opacity = 0.7;
-    vec3 vp = vPosition*10.0;
-    float n = snoise(vp.xy) + snoise(vp.zx) + snoise(vp.zy);
-
     C = vec3(1.0);
-    //I = phong(vdist,ldist,C,V,L,N);
-    I = vec3(n);
-    //I = banding(I, I*0.3, vdist);
-    I = fog(vdist,I,V,L,N,vPosition.z);
+    //C = (1.0 + N)*0.5;
 
+    vec3 vp = vPosition*1.0;
+    //float n = snoise(vp.xy) + snoise(vp.zx) + snoise(vp.zy);
+    float n = 0.3333*(rand(vp.xy) + rand(vp.zx) + rand(vp.xz));
+
+    I = phong(vdist,ldist,C,V,L,N) + (0.5-n)*0.3;
+    //I = banding(C, C*0.3, 100.0*vPosition.z);
+    I = fog(vdist,I,V,L,N,1.0);
+    //I = effect(I, N, L, V);
+    //I = 0.5*(1.0+N);
 
   }
-  else if (mode < 2.0){ // *1* // render height difference map
-    I = diffmap(vPosition.z);
+  else if (mode < 2.0){ // *1* // render normal map
+    I = 0.5*(1.0+normalize(N));
   }
   else if (mode < 3.0){ // *2* // render depth difference map
     I = diffmap(vdist);

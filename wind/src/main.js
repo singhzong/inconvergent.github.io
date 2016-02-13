@@ -54,7 +54,7 @@ console.log('screen ratio', viewRatio, viewWinWidth, viewWinHeight);
         windowAdjust()
       }, 300)
   })
-})
+}())
 
 function windowAdjust() {
 
@@ -171,7 +171,7 @@ $.when(
         type: "t",
         value: null
       },
-      heightTexture: {
+      normalTexture: {
         type: "t",
         value: null
       },
@@ -189,11 +189,7 @@ $.when(
       },
       light: {
         type: '4f',
-        value: [10000, 10000, 10000, 0.0]
-      },
-      kerSize: {
-        type: 'f',
-        value: 10
+        value: [1000, -1000, 0, 0.0]
       },
       pixelRatio: {
         type: 'f',
@@ -205,16 +201,16 @@ $.when(
     var screenTexture = new THREE.WebGLRenderTarget(
       Math.floor(winWidth*pixelRatio),
       Math.floor(winHeight*pixelRatio), {
-        minFilter: THREE.LinearFilter,
-        magFilter: THREE.NearestFilter,
+        //minFilter: THREE.LinearFilter,
+        //magFilter: THREE.NearestFilter,
         format: THREE.RGBAFormat }
     )
 
-    var heightTexture = new THREE.WebGLRenderTarget(
+    var normalTexture = new THREE.WebGLRenderTarget(
       Math.floor(winWidth*pixelRatio),
       Math.floor(winHeight*pixelRatio), {
-        minFilter: THREE.LinearFilter,
-        magFilter: THREE.NearestFilter,
+        //minFilter: THREE.LinearFilter,
+        //magFilter: THREE.NearestFilter,
         format: THREE.RGBAFormat
       }
     )
@@ -222,8 +218,8 @@ $.when(
     var depthTexture = new THREE.WebGLRenderTarget(
       Math.floor(winWidth*pixelRatio),
       Math.floor(winHeight*pixelRatio), {
-        minFilter: THREE.LinearFilter,
-        magFilter: THREE.NearestFilter,
+        //minFilter: THREE.LinearFilter,
+        //magFilter: THREE.NearestFilter,
         format: THREE.RGBAFormat
       }
     )
@@ -280,27 +276,25 @@ $.when(
     screenQuad.position.z = -100;
     sceneScreen.add(screenQuad);
 
-    var numCube = 10
+    var numGeo = 20
     var spread = 1000
-    var size = 20
-    for (var k=0; k<numCube; k++){
-      for (var j=0; j<numCube; j++){
-        for (var i=0; i<numCube; i++){
-          var box = new THREE.CubeGeometry(size,size,size)
-          var boxMesh = new THREE.Mesh(box, geoMat)
-          boxMesh.position.x = -spread*0.5 + i*spread/numCube
-          boxMesh.position.y = -spread*0.5 + j*spread/numCube
-          boxMesh.position.z = -spread*0.5 + k*spread/numCube
-          //boxMesh.rotation.x = Math.PI/(i/numCube)
-          //boxMesh.rotation.y = Math.PI/(j/numCube)
-          //boxMesh.rotation.z = Math.PI/(k/numCube)
-          scene.add(boxMesh)
+    var size = 10
+
+    //var sections = 6
+    //var geo = new THREE.SphereGeometry(size*0.5, sections, sections)
+    var geo = new THREE.CubeGeometry(size,size,size)
+
+    for (var k=0; k<numGeo; k++){
+      for (var j=0; j<numGeo; j++){
+        for (var i=0; i<numGeo; i++){
+          var mesh = new THREE.Mesh(geo, geoMat)
+          mesh.position.x = -spread*0.5 + i*spread/numGeo
+          mesh.position.y = -spread*0.5 + j*spread/numGeo
+          mesh.position.z = -spread*0.5 + k*spread/numGeo
+          scene.add(mesh)
         }
       }
     }
-
-
-    renderer.setClearColor(new THREE.Color(0x000000), 1.0)
 
     var itt = 0.0
     function animate(){
@@ -321,16 +315,20 @@ $.when(
       //renderer.setSize(winWidth,winHeight)
       //renderer.render(scene, camera)
 
-      // render differential maps
+      // render differential map
       renderer.setClearColor(new THREE.Color(0x808080), 1.0)
       uniforms.mode.value = 2.0
       renderer.render(scene, camera, depthTexture, true)
       uniforms.depthTexture.value = depthTexture
 
+      // render normal map
+      renderer.setClearColor(new THREE.Color(0x808000), 1.0)
       uniforms.mode.value = 1.0
+      renderer.render(scene, camera, normalTexture, true)
+      uniforms.normalTexture.value = normalTexture
+
 
       renderer.setClearColor(new THREE.Color(0x000000), 1.0)
-
       uniforms.screenTexture.value = screenTexture;
 
       // render scene to texture
