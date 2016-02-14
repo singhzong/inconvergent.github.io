@@ -96,9 +96,8 @@ vec3 effect(vec3 I, vec3 N, vec3 L, vec3 V){
 
 vec3 fog(float vdist, vec3 I, vec3 V, vec3 L, vec3 N, float h){
 
-  vec3 fogColor = vec3(0.0);
-  float b = 0.0009;
-
+  vec3 fogColor = vec3(1.0);
+  float b = 0.00009;
   float dens = 1.0-exp(-(vdist*b));
   return mix(I,fogColor,dens);
 }
@@ -170,22 +169,17 @@ void main(){
   float opacity = 1.0;
   vec3 I = vec3(0.0,0.0,1.0);
 
-  float vdist;
-  float ldist;
-
   vec3 C;
-  vec3 V;
-  vec3 L;
-  vec3 N;
 
-  ldist = length(vLight);
-  vdist = length(vView);
+  float ldist = length(vLight);
+  float vdist = length(vView);
 
-  N = vNormal;
-  L = normalize(vLight);
-  V = normalize(vView);
+  vec3 N = normalize(vNormal);
+  vec3 L = normalize(vLight);
+  vec3 V = normalize(vView);
 
   if (mode < 1.0){ // *0*
+
 
     C = vec3(1.0);
     //C = (1.0 + N)*0.5;
@@ -197,12 +191,13 @@ void main(){
     I = phong(vdist,ldist,C,V,L,N) + (0.5-n)*0.3;
     //I = banding(C, C*0.3, 100.0*vPosition.z);
     I = fog(vdist,I,V,L,N,1.0);
-    //I = effect(I, N, L, V);
+    I = effect(I, N, L, V);
     //I = 0.5*(1.0+N);
 
   }
   else if (mode < 2.0){ // *1* // render normal map
     I = 0.5*(1.0+normalize(N));
+    opacity = 0.5;
   }
   else if (mode < 3.0){ // *2* // render depth difference map
     I = diffmap(vdist);

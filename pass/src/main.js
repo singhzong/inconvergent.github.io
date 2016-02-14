@@ -189,7 +189,7 @@ $.when(
       },
       light: {
         type: '4f',
-        value: [1000, -1000, 0, 0.0]
+        value: [0, 5000, 2000, 0.0]
       },
       pixelRatio: {
         type: 'f',
@@ -277,10 +277,10 @@ $.when(
     sceneScreen.add(screenQuad);
 
     var numGeo = 20
-    var spread = 1000
-    var size = 10
+    var spread = 3000
+    var size = 20
 
-    //var sections = 6
+    var sections = 2
     //var geo = new THREE.SphereGeometry(size*0.5, sections, sections)
     var geo = new THREE.CubeGeometry(size,size,size)
 
@@ -291,6 +291,11 @@ $.when(
           mesh.position.x = -spread*0.5 + i*spread/numGeo
           mesh.position.y = -spread*0.5 + j*spread/numGeo
           mesh.position.z = -spread*0.5 + k*spread/numGeo
+          mesh.rotateX(Math.random()*Math.PI*2)
+          mesh.rotateY(Math.random()*Math.PI*2)
+          //geo.computeFaceNormals()
+          //geo.normalsNeedUpdate = true
+          //mesh.matrixWorldNeedsUpdate = true
           scene.add(mesh)
         }
       }
@@ -328,20 +333,18 @@ $.when(
       uniforms.normalTexture.value = normalTexture
 
 
-      renderer.setClearColor(new THREE.Color(0x000000), 1.0)
+      renderer.setClearColor(new THREE.Color(0xFFFFFF), 1.0)
       uniforms.screenTexture.value = screenTexture;
 
       // render scene to texture
-      renderer.setClearColor(new THREE.Color(0xFFFF00), 0.0)
       uniforms.mode.value = 0.0
       renderer.render(scene, camera, screenTexture, true)
 
       //// render texture to screen
-      renderer.setClearColor(new THREE.Color(0xFFFF00), 0.0);
       uniforms.mode.value = 0.0;
-      renderer.render(scene, camera, screenTexture, true);
+      renderer.render(scene, camera, screenTexture, true)
 
-      renderer.render(sceneScreen, cameraScreen);
+      renderer.render(sceneScreen, cameraScreen)
 
       window.requestAnimationFrame(animate)
     }
