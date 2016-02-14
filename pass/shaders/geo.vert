@@ -9,7 +9,9 @@ uniform vec4 light;
 
 void main(){
 
-  vPosition = vec3(modelMatrix * vec4(position,1.));
+  vPosition = position + cos(itt/100.0)*200.0;
+
+  vPosition = vec3(modelMatrix * vec4(vPosition,1.));
   // TODO: find out how this is supposed to be done
   vNormal = vec3(modelMatrix * vec4(normal,0.0));
   //vNormal = normal;

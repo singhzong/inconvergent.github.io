@@ -88,16 +88,16 @@ float rand(vec2 co){
 }
 
 vec3 effect(vec3 I, vec3 N, vec3 L, vec3 V){
-  vec3 ind = vec3(2.5,2.5,2.0)/50.0;
+  vec3 ind = vec3(2.0,0.5,0.0)/50.0;
   vec3 ref = clamp(abs(refract(V,N,1.0)),0.0,1.0);
-  vec3 x = I*ref*ind*3.0;
+  vec3 x = I*ref*ind*5.0;
   return clamp(I-x,0.0,1.0);
 }
 
 vec3 fog(float vdist, vec3 I, vec3 V, vec3 L, vec3 N, float h){
 
   vec3 fogColor = vec3(1.0);
-  float b = 0.00009;
+  float b = 0.00001;
   float dens = 1.0-exp(-(vdist*b));
   return mix(I,fogColor,dens);
 }
@@ -181,7 +181,7 @@ void main(){
   if (mode < 1.0){ // *0*
 
 
-    C = vec3(1.0);
+    C = vec3(0.3);
     //C = (1.0 + N)*0.5;
 
     vec3 vp = vPosition*1.0;

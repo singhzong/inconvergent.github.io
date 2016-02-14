@@ -276,11 +276,11 @@ $.when(
     screenQuad.position.z = -100;
     sceneScreen.add(screenQuad);
 
-    var numGeo = 20
-    var spread = 3000
-    var size = 20
+    var numGeo = 15
+    var spread = 2000
+    var size = 40
 
-    var sections = 2
+    //var sections = 2
     //var geo = new THREE.SphereGeometry(size*0.5, sections, sections)
     var geo = new THREE.CubeGeometry(size,size,size)
 
@@ -291,6 +291,8 @@ $.when(
           mesh.position.x = -spread*0.5 + i*spread/numGeo
           mesh.position.y = -spread*0.5 + j*spread/numGeo
           mesh.position.z = -spread*0.5 + k*spread/numGeo
+          //mesh.position.z = Math.cos(i/numGeo*Math.PI*10)*500*Math.sin(j/numGeo*Math.PI*10)
+
           mesh.rotateX(Math.random()*Math.PI*2)
           mesh.rotateY(Math.random()*Math.PI*2)
           //geo.computeFaceNormals()
@@ -303,6 +305,7 @@ $.when(
 
     var itt = 0.0
     function animate(){
+
       itt += 1.0
       uniforms.itt.value = itt
 
