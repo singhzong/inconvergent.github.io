@@ -77,7 +77,8 @@ void main(){
     lic = LIC(here, screenTexture, depthTexture, -0.001);
     diff = DIFF(here,  screenTexture, normalTexture);
     diff = diff - (1.0-step(0.2, diff))*diff;
-    I = post(lic.rgb - 2.0*diff.rgb);
+    //I = post(lic.rgb - 2.0*diff.rgb);
+    I = post(lic.rgb);
   }
 
   gl_FragColor = vec4(

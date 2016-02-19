@@ -181,7 +181,7 @@ void main(){
   if (mode < 1.0){ // *0*
 
 
-    C = vec3(0.3);
+    C = vec3(0.5+vPosition/3000.0);
     //C = (1.0 + N)*0.5;
 
     vec3 vp = vPosition*1.0;

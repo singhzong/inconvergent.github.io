@@ -7,11 +7,17 @@ varying vec3 vLight;
 uniform float itt;
 uniform vec4 light;
 
+vec3 pos;
+
 void main(){
 
-  vPosition = position + cos(itt/100.0)*200.0;
+  pos = position;
 
-  vPosition = vec3(modelMatrix * vec4(vPosition,1.));
+  float n = 30.0;
+
+  pos += vec3(cos(itt/n), sin(itt/n), tan(itt/n))*10.0;
+
+  vPosition = vec3(modelMatrix * vec4(pos,1.));
   // TODO: find out how this is supposed to be done
   vNormal = vec3(modelMatrix * vec4(normal,0.0));
   //vNormal = normal;
@@ -19,5 +25,5 @@ void main(){
   vView = vPosition - cameraPosition;
   vLight = vPosition - light.xyz;
 
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(pos,1.0);
 }
