@@ -30,6 +30,8 @@ github:
 pages_list:
   Generative: '/generative'
   Interactive: '/interactive'
+  Store: '/store'
   About: '/about'
 
 generative-title: 'On Generative Algorithms'
+store-title: 'Store'
