@@ -31,11 +31,6 @@ leaves and flower petals. And probably several other things.</p>
   dynamically.  Somewhat like pearls on a string. That way they can keep a
   comfortable distance to other nodes (pearls).</p>
 
-<img src="/img/generative/differential-line3-uniform.gif" alt="differential
-line ani" title="differential line uniform configuration" />
-
-<img src="/img/generative/differential-line2.gif" alt="differential line ani"
-title="differential line curvature configuration" />
 
 <p>The algorithm goes like this: First we start with a set of connected nodes
   in some shape (circles or lines are good). Then we randomly introduce new
@@ -45,18 +40,25 @@ title="differential line curvature configuration" />
   from all other nodes within a certain distance. Note that there is no actual
   collision detection involved here.</p>
 
+<img src="/img/generative/differential-line3-uniform.gif" alt="differential
+line ani" title="differential line uniform configuration" />
+
 <p>There are a number of factors that will affect the behaviour of this system.
   One is how frequently we introduce new nodes. Another is the maximum distance
   within which nodes will avoid each other. And the most interesting one (in my
   opinion) is how we choose where to insert new nodes. We can do it uniformly,
-  as in the image above, or we can prioritize places where the curve bends more
-  sharply, as below. The difference is not entirely easy to pinpoint in these
-  animations, but it gets very noticeable on large simulations. </p>
+  as in the animation above, or we can prioritize places where the curve bends
+  more sharply, as below.</p>
+
+<img src="/img/generative/differential-line2.gif" alt="differential line ani"
+title="differential line curvature configuration" />
+
+<p>The difference is not entirely easy to pinpoint in these animations, but it
+  gets very noticeable on large simulations. The image below uses the curvature
+  based insertion method and took about 40 hours to complete.</p>
 
 <img src="/img/generative/differential-3k-small.png" alt="differential line"
-title="differential line still" /> <blockquote>This simulation uses the
-  curvature based insertion method and took about 40 hours to
-  complete.</blockquote>
+title="differential line still" />
 
 <p>Another way of getting interesting results from this system is by painting
   the position of the curve for each step in time. The visual and textural
