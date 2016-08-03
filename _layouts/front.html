@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    {% include head.html %}
+
+    <style>
+      html{
+        height: 100%;
+        background-image: url(img/frbg.jpg);
+        background-position: right bottom;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <header>
+      <!--<script src="/fr/lib/ndarray.js"></script>-->
+      <!--<script src="/fr/lib/three.min.js"></script>-->
+      <!--<script src="/fr/lib/Detector.js"></script>-->
+      <!--<script src="/fr/src/main.js"></script>-->
+      <div class="intro">
+        <span class="title">
+          <h1>inconvergent</h1>
+          <h2>—A Study of Generative Algorithms</h2>
+        </span>
+
+        <nav>
+          <ul id="menu">
+            {% for page in site.pages_list %}
+            <li><small><a href="{{ page[1]  }}">{{ page[0] }}</a></small></li>
+            {% endfor %}
+          </ul>
+        </nav>
+
+        <!--<div id="box"></div>-->
+      </div>
+    </header>
+
+    <!--<div id="responsive"></div>-->
+
+  </body>
+
+</html>

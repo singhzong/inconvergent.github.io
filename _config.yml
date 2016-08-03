@@ -1,36 +1,28 @@
-# Permalinks
-#
-# Use of `relative_permalinks` ensures post links from the index work properly.
 permalink:           pretty
 
-# Setup
 title:               Inconvergent
-tagline:             A study of generative algorithms
+tagline:             A Study of Generative Algorithms
 url:                 http://inconvergent.net/
 baseurl:             ""
 
-# Assets
-#
-# We specify the directory for Jekyll so we can use @imports.
 sass:
   sass_dir:          _sass
   style:            :compressed
 
-# About/contact
 author:
   name:              Anders Hoff
   url:               https://twitter.com/inconvergent
   email:             inconvergent@gmail.com
 
-# Custom vars
 version:             3.1.1
 github:
   repo:              https://github.com/inconvergent
 
 pages_list:
   Generative: '/generative'
-  Interactive: '/interactive'
-  Store: '/store'
+  #Interactive: '/interactive'
+  Gallery: '/gallery'
+  Store: 'http://store.inconvergent.net'
   About: '/about'
 
 generative-title: 'On Generative Algorithms'

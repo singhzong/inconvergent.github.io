@@ -1,41 +1,69 @@
-// Layout
-//
-// Styles for managing the structural hierarchy of the site.
+.text {
+  margin: 0 auto;
+  padding: 0;
+  text-align: left;
+  width: $page-width-percent;
+  max-width: $page-width;
+  font-size: 1.3rem;
+  line-height: 2.1rem;
+  .fade {
+    color: $light-color;
+  }
+  h1, h2, h3, h4, h5, h6{
+    @extend .heading-font;
+  }
+}
 
-.container {
-  max-width: 50rem;
-  padding-left:  1.5rem;
-  padding-right: 1.5rem;
-  margin-left:  auto;
-  margin-right: auto;
+.gallery {
+  padding-top: 100px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
+  img {
+    margin: 0px;
+    margin-bottom: 100px;
+  }
+}
+
+.text-img {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+  img {
+    padding: 0;
+  }
 }
 
 footer {
-  margin-top: 6rem;
-  margin-bottom: 1rem;
-  color: #eee;
-  text-align: center;
+  margin: 0 auto;
+  text-align: left;
+  width: $page-width-percent;
+  max-width: $page-width;
+  padding-top: 100px;
+  padding-bottom: 30px;
+  color: $light-color;
+  text-align: right;
 }
 
-.painting {
-  padding-top: 2rem;
-  padding-bottom: 3rem;
+
+a.ghlink:after{
+  content:"]";
+}
+a.ghlink:before{
+  content:"[";
+}
+.ghlink {
+  padding-left: 0.5rem;
+  text-transform: lowercase;
 }
 
 .paginator {
+  @extend .heading-font;
   display: block;
 }
-
-.ghlink {
-  display: block;
-  padding-top: 1em;
-  padding-bottom: 1em;
-}
-
-.sec {
-  padding-bottom: 1em;
-}
-
 .next {
   @extend .paginator;
   float: right;
@@ -45,6 +73,96 @@ footer {
   float: left;
 }
 
-.fade {
-  color: #DDD;
+#box {
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
+
+.intro {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  min-height: 20px;
+  float: left;
+  margin: 0 auto;
+  display: block;
+  background-color: #FFF;
+  //background-color: cyan;
+  opacity: 0.5;
+}
+
+.title {
+  position: relative;
+  float: left;
+  margin: 0;
+  padding: $side-pad 0 0 $side-pad;
+  min-height: 1rem;
+  //background-color: red;
+  width: 100%;
+  @media (min-width: 1281px) {
+    width: 50%;
+  }
+  h1, h2, h3, h4, h5, h6{
+    padding: 0;
+    margin: 0;
+  }
+  h1 {
+    font-family: $serif-font;
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    padding: 0;
+    margin: 0;
+    color: $font-color;
+    @media (min-width:320px) {
+      font-size: 2.0rem;
+      line-height: 2.0rem;
+    }
+    @media (min-width:600px) {
+      font-size: 2.3rem;
+      line-height: 2.3rem;
+    }
+    @media (min-width:801px) {
+      font-size: 2.5rem;
+      line-height: 2.5rem;
+    }
+    @media (min-width:1025px) {
+      font-size: 5.5rem;
+      line-height: 5.5rem;
+    }
+  }
+  h2 {
+    font-family: $serif-font;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 0.9rem;
+    padding: 25px 0 20px 0;
+    margin: 0;
+    color: $font-color;
+    @media (min-width:320px) {
+      font-size: 1.0rem;
+      line-height: 1.5rem;
+    }
+    @media (min-width:600px) {
+      font-size: 1.1rem;
+      line-height: 1.6rem;
+    }
+    @media (min-width:801px) {
+      font-size: 1.2rem;
+      line-height: 1.7rem;
+    }
+    @media (min-width:1025px) {
+      font-size: 2.0rem;
+      line-height: 2.5rem;
+    }
+  }
+}
+

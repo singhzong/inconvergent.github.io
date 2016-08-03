@@ -3,91 +3,122 @@ layout: default
 title: On Generative Algorithms - Differential Mesh
 ---
 
-<h1 class="fade">{{ site.generative-title }}</h1>
+<div class="text">
 
-<div class="sec" id="differential-mesh">
+  <h1 class="fade">{{ site.generative-title }}</h1>
 
-<h2>Differential Mesh</h2>
+  <h2>Differential Mesh
+    <a class="ghlink"
+      href="https://github.com/inconvergent/differential-mesh">Github</a>
+  </h2>
 
-<a class="ghlink"
-href="https://github.com/inconvergent/differential-mesh">Differential Mesh on
-Github</a>
+  <p>When I had gotten <a href="../differential-line">Differential Line</a>
+    working the obvious next step was to try to create something similar in three
+    dimensions; and one alternative is to make the line itself move in
+    three dimensions. However, that did not really seem all that appealing. Instead I
+    chose to go for a combination of the attraction/rejection behaviour of <a
+      href="../differential-line">Differential Line</a>, and the growing behaviour
+    of Hyphae. Essentially I wanted to make a (triangular) mesh that grew outward
+    without self-intersecting or colliding. Doing this directly in three dimensions
+    seemed a little daunting, so I started with a two dimensional version.</p>
 
-<p>When I had gotten <a href="../differential-line">Differential Line</a>
-working the obvious next step was to try to create something similar in three
-dimensions; and one alternative is to make the line itself move in
-three dimensions. However, that did not really seem all that appealing. Instead I
-chose to go for a combination of the attraction/rejection behaviour of <a
-  href="../differential-line">Differential Line</a>, and the growing behaviour
-of Hyphae. Essentially I wanted to make a (triangular) mesh that grew outward
-without self-intersecting or colliding. Doing this directly in three dimensions
-seemed a little daunting, so I started with a two dimensional version.</p>
+</div>
 
-<img src="/img/generative/differential-mesh3-tri.gif" alt="differential mesh
-ani" title="differential mesh triangles"/>
+<div class="text-img">
 
-<p>In the animation above you can see that new triangles are added to the
-outside if the existing mesh.  They are added in such a way that they don't
-collide with existing parts of the mesh. I use a very naive collision detection
-where I check if a potential new vertex is too close to any existing vertices
-before adding it. In addition all vertices still behave similarly to the
-vertices in Differential Line; that is, they try to get  as much space around
-themselves as possible, whilst remaining close enough to their neighbors.</p>
+  <img src="/img/generative/differential-mesh3-tri.gif" alt="differential mesh
+  ani" title="differential mesh triangles"/>
 
-<p>The key thing to get this to work is to have the mesh do various
-self-balancing operations as it grows. There are a few things you can try:</p>
+</div>
 
-<ul>
-  <li>Split edges that are too long.</li>
-  <li>Avoid inserting new vertices where the vertex density is too high.</li>
-  <li>Flip edges to reduce the length of the edge.</li>
-  <li>Add a force that makes the triangles attempt to be roughly
-    equilateral.</li>
+<div class="text">
 
-</ul>
-<p>The animation above employs a combination of all of these.</p>
+  <p>In the animation above you can see that new triangles are added to the
+    outside if the existing mesh.  They are added in such a way that they don't
+    collide with existing parts of the mesh. I use a very naive collision detection
+    where I check if a potential new vertex is too close to any existing vertices
+    before adding it. In addition all vertices still behave similarly to the
+    vertices in Differential Line; that is, they try to get  as much space around
+    themselves as possible, whilst remaining close enough to their neighbors.</p>
 
-<p>Now we scale down the triangle size and add some structure.</p>
+  <p>The key thing to get this to work is to have the mesh do various
+    self-balancing operations as it grows. There are a few things you can try:</p>
 
-<img src="/img/generative/differential-mesh1-uniform.gif" alt="differential
-mesh ani" title="differential mesh uniform" />
+  <ul>
+    <li>Split edges that are too long.</li>
+    <li>Avoid inserting new vertices where the vertex density is too high.</li>
+    <li>Flip edges to reduce the length of the edge.</li>
+    <li>Add a force that makes the triangles attempt to be roughly
+      equilateral.</li>
 
-<p>The hope was that this set of rules would resemble the growth of slime mold
-or, more likely, lichen. It turns out the basic version of this is quite
-similar to certain types of lichens. And it seems to match the growth of <a
-  href="https://en.wikipedia.org/wiki/Marchantiophyta">liverworts</a> as well,
-as was pointed out to me on <a
-  href="https://twitter.com/CieraReports/status/621068347430449152">twitter</a>.</p>
+  </ul>
+  <p>The animation above employs a combination of all of these.</p>
 
-<p>The way I initially controlled the growth was to choose random edges, check
-if they were on the outside if the structure, and see if I could attach a new
-triangle to that edge. The problem with this strategy is that eventually most
-edges are going to be on the "inside" if the structure. This means that you are
-going to spend a lot of resources checking edges that you can't do anything
-with.</p>
+  <p>Now we scale down the triangle size and add some structure.</p>
 
-<p>There is a pretty obvious solution to this problem. (And, as usual, when I
-say obvious, I mean that it took me a few months to realize) Instead of picking
-random edges and testing if you can grow a new triangle from it, you can use
-food sources. First you randomly position food sources in the domain.  Then you
-have something happen each time an edge in the structure hits one of these food
-sources. For instance if you let the growth of the mesh spike when a food
-source is hit you get something like this.</p>
+</div>
 
-<img src="/img/generative/differential-mesh2-sources.gif" alt="differential
-mesh ani" title="differential mesh sources" />
+<div class="text-img">
 
-<p>If you let this simulation run for a while you can get a number of
-interesting results. Here is a version where the color of each triangle
-gradually changes according to when it was created. The color changes gradually
-from white to black, then flips instantly back to white again. The first time I
-did this it was an accident, but as you can see it gives it a nice three
-dimensional illusion.</p>
+  <img src="/img/generative/differential-mesh1-uniform.gif" alt="differential
+  mesh ani" title="differential mesh uniform" />
 
-<img src="/img/generative/differential-mesh-10k-small.png" alt="differential
-mesh still" title="differential mesh rose" />
+</div>
 
-<a class="paginator prev" href="../differential-line">Previous: Differential Line</a>
-<a class="paginator next" href="../differential-mesh-3d">Next: Differential Mesh 3D</a>
+<div class="text">
+
+  <p>The hope was that this set of rules would resemble the growth of slime mold
+    or, more likely, lichen. It turns out the basic version of this is quite
+    similar to certain types of lichens. And it seems to match the growth of <a
+      href="https://en.wikipedia.org/wiki/Marchantiophyta">liverworts</a> as well,
+    as was pointed out to me on <a
+      href="https://twitter.com/CieraReports/status/621068347430449152">twitter</a>.</p>
+
+  <p>The way I initially controlled the growth was to choose random edges, check
+    if they were on the outside if the structure, and see if I could attach a new
+    triangle to that edge. The problem with this strategy is that eventually most
+    edges are going to be on the "inside" if the structure. This means that you are
+    going to spend a lot of resources checking edges that you can't do anything
+    with.</p>
+
+  <p>There is a pretty obvious solution to this problem. (And, as usual, when I
+    say obvious, I mean that it took me a few months to realize) Instead of picking
+    random edges and testing if you can grow a new triangle from it, you can use
+    food sources. First you randomly position food sources in the domain.  Then you
+    have something happen each time an edge in the structure hits one of these food
+    sources. For instance if you let the growth of the mesh spike when a food
+    source is hit you get something like this.</p>
+
+</div>
+
+<div class="text-img">
+
+  <img src="/img/generative/differential-mesh2-sources.gif" alt="differential
+  mesh ani" title="differential mesh sources" />
+
+</div>
+
+<div class="text">
+
+  <p>If you let this simulation run for a while you can get a number of
+    interesting results. Here is a version where the color of each triangle
+    gradually changes according to when it was created. The color changes gradually
+    from white to black, then flips instantly back to white again. The first time I
+    did this it was an accident, but as you can see it gives it a nice three
+    dimensional illusion.</p>
+
+</div>
+
+<div class="text-img">
+
+  <img src="/img/generative/differential-mesh-10k-small.png" alt="differential
+  mesh still" title="differential mesh rose" />
+
+</div>
+
+<div class="text">
+
+  <a class="prev" href="../differential-line">Previous: Differential Line</a>
+  <a class="next" href="../differential-mesh-3d">Next: Differential Mesh 3D</a>
 
 </div>
