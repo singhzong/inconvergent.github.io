@@ -12,7 +12,6 @@
         background-position: right bottom;
         background-attachment: fixed;
         background-repeat: no-repeat;
-
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -23,31 +22,37 @@
   </head>
 
   <body>
+
     <header>
-      <!--<script src="/fr/lib/ndarray.js"></script>-->
-      <!--<script src="/fr/lib/three.min.js"></script>-->
-      <!--<script src="/fr/lib/Detector.js"></script>-->
-      <!--<script src="/fr/src/main.js"></script>-->
       <div class="intro">
         <span class="title">
-          <h1>inconvergent</h1>
-          <h2>—A Study of Generative Algorithms</h2>
+          <!--googleon: all-->
+          <h1>{{ site.title }}</h1>
+          <h2>{{ site.tagline }}</h2>
+          <!--googleoff: all-->
         </span>
 
         <nav>
           <ul id="menu">
             {% for page in site.pages_list %}
-            <li><small><a href="{{ page[1]  }}">{{ page[0] }}</a></small></li>
+            <li><a href="{{ page[1]  }}">{{ page[0] }}</a></li>
             {% endfor %}
           </ul>
         </nav>
 
-        <!--<div id="box"></div>-->
       </div>
     </header>
 
-    <!--<div id="responsive"></div>-->
-
   </body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+  <script>
+    WebFont.load({
+      google: {
+        families: ['Droid Sans', 'Droid Serif:400,700i', 'Open Sans Condensed:300']
+      }
+    });
+  </script>
+
 
 </html>

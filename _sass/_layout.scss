@@ -162,6 +162,9 @@ a.ghlink:before{
     @media (min-width:1025px) {
       font-size: 2.0rem;
       line-height: 2.5rem;
+      &:before{
+        content:"—";
+      }
     }
   }
 }
