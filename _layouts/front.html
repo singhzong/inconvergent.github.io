@@ -9,7 +9,7 @@
       html{
         height: 100%;
         background-image: url(img/frbg.jpg);
-        background-position: right bottom;
+        background-position: center bottom;
         background-attachment: fixed;
         background-repeat: no-repeat;
         -webkit-background-size: cover;
@@ -27,7 +27,7 @@
       <div class="intro">
         <span class="title">
           <!--googleon: all-->
-          <h1>{{ site.title }}</h1>
+          <h1 id='home'>{{ site.title }}</h1>
           <h2>{{ site.tagline }}</h2>
           <!--googleoff: all-->
         </span>
@@ -49,22 +49,24 @@
         <div class="text">
 
           <nav>
-            <h1 class="site-title" id="about"><a href='/'>Top</a></h1>
+            <div class="site-title" id="about"><a href='#home'>{{ site.title }}</a></div>
           </nav>
 
           <h1>About</h1>
 
           <!--googleon: all-->
 
-          <p>My name is Anders Hoff. I write algorithms that generate images. To me it is
-            fascinating how complex and intricate results you can get from a set of
-            simple rules. My works are often a result of me trying to recreate some
-            behaviour I have seen elsewhere. Either in nature, in previous works by
-            others or in mathematical concepts.</p>
+          <p>My name is Anders Hoff, I am a generative artist and programmer. I
+            am fascinated by how intricate and complex results you can get from
+            a set of simple rules.</p>
 
-          <p>Most of these algorithms are incredibly flexible, and I would love to hear
-            from you if you have a project in mind! Or if you have a really large wall
-            that seems kind of empty.</p>
+          <p>My works are often a result of trying to recreate some behaviour I
+            have seen elsewhere. Either in nature, in previous works by others
+            or in mathematical concepts.</p>
+
+          <p>Most of these algorithms are incredibly flexible, and I would love
+            to hear from you if you have a project in mind! Or if you have a
+            really large wall that seems kind of empty.</p>
 
           <dl class="named-links">
 
@@ -101,12 +103,11 @@
 
     </main>
 
-
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
     <script>
       WebFont.load({
         google: {
-          families: ['Droid Sans', 'Droid Serif:400,700i', 'Open Sans Condensed:300']
+          families: ['Droid Sans', 'Droid Serif:700i,700', 'Open Sans Condensed:300']
         }
       });
     </script>

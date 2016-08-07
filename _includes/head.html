@@ -14,7 +14,7 @@
   {{ page.title }} &middot; {{ site.title }}
   {% endif %}</title>
 
-<meta name="twitter:card" content="gallery">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@inconvergent">
 <meta name="twitter:creator" content="@inconvergent">
 <meta name="twitter:url" content="http://inconvergent.net">
@@ -23,11 +23,11 @@
 {% else %}
 {{ page.title }} &middot; {{ site.title }}
 {% endif %}">
-<meta name="twitter:description" content="Generative Art by Anders Hoff">
-<meta name="twitter:image1" content="http://inconvergent.net/img/differential_line_b.jpg">
-<meta name="twitter:image0" content="http://inconvergent.net/img/hyphae_a.jpg">
-<meta name="twitter:image2" content="http://inconvergent.net/img/orbitals_ba.jpg">
-<meta name="twitter:image3" content="http://inconvergent.net/img/expsurf_d.jpg">
+<meta name="twitter:description" content="{{ page.description }}">
+<meta name="twitter:image1" content="http://inconvergent.net/img/ello-mesh5.jpg">
+<meta name="twitter:image0" content="http://inconvergent.net/img/ello-line.jpg">
+<meta name="twitter:image2" content="http://inconvergent.net/img/creatures.jpg">
+<meta name="twitter:image3" content="http://inconvergent.net/img/fracture_a.jpg">
 <meta name="twitter:domain" content="inconvergent.net">
 
 <meta property="og:title" content="{% if page.title == "Home" %}
@@ -37,12 +37,10 @@
 {% endif %}" />
 <meta property="og:site_name" content="inconvergent" />
 <meta property="og:url" content="http://inconvergent.net/" />
-<meta property="og:image" content="http://inconvergent.net/img/differential_line_b.jpg" />
-<meta property="og:image" content="http://inconvergent.net/img/differential_a.jpg" />
-<meta property="og:image" content="http://inconvergent.net/img/orbitals_ba.jpg" />
-<meta property="og:image" content="http://inconvergent.net/img/lichen_a.jpg" />
-<meta property="og:image" content="http://inconvergent.net/img/lichen_d.jpg" />
-<meta property="og:image" content="http://inconvergent.net/img/expsurf_d.jpg" />
+<meta property="og:image" content="http://inconvergent.net/img/ello-mesh5.jpg" />
+<meta property="og:image" content="http://inconvergent.net/img/ello-line.jpg" />
+<meta property="og:image" content="http://inconvergent.net/img/creatures.jpg" />
+<meta property="og:image" content="http://inconvergent.net/img/fracture_a.jpg" />
 <meta property="og:type" content="website" />
 
 <meta property="og:description" content="{{ page.description }}" />
@@ -53,7 +51,7 @@
 <meta name="author" content="Inconvergent, Anders Hoff" />
 <meta name="keywords" content="generative, art, algorithms, code,
 programming, canvas, animation, orbitals, inconvergent, computational,
-python, mathematics, parametric, design, python" />
+python, mathematics, parametric, python, biology" />
 <meta name="viewport" content="width=device-width, initial-scale=1,
 maximum-scale=3" />
 
