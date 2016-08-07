@@ -23,7 +23,7 @@ pages_list:
   #Interactive: '/interactive'
   Gallery: '/gallery'
   Store: 'http://store.inconvergent.net'
-  About: '/about'
+  About: '#about'
 
 generative-title: 'On Generative Algorithms'
 store-title: 'Store'

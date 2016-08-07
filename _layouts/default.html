@@ -14,7 +14,7 @@
     <header>
       <div class="text">
         <nav>
-          <h1 class="site-title"><a href='/'>inconvergent</a></h1>
+          <h1 class="site-title"><a href='/'>{{ site.title }}</a></h1>
         </nav>
       </div>
 
@@ -37,17 +37,16 @@
     </small>
   </footer>
 
-  <div id="responsive"></div>
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+  <script>
+    WebFont.load({
+      google: {
+        families: ['Droid Sans', 'Droid Serif:400,700i', 'Open Sans Condensed:300']
+      }
+    });
+  </script>
 
 </body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-<script>
-  WebFont.load({
-    google: {
-      families: ['Droid Sans', 'Droid Serif:400,700i', 'Open Sans Condensed:300']
-    }
-  });
-</script>
 
 </html>

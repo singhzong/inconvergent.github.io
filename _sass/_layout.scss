@@ -14,6 +14,18 @@
   }
 }
 
+.below {
+  padding: 0 0 100px 0;
+  width: 100%;
+  min-height: 100px;
+  background-color: #fff;
+  top: 100%;
+  position: absolute;
+  .text{
+    @extend .text;
+  }
+}
+
 .gallery {
   padding-top: 100px;
   margin: 0 auto;
@@ -38,6 +50,7 @@
 }
 
 footer {
+  clear: both;
   margin: 0 auto;
   text-align: left;
   width: $page-width-percent;

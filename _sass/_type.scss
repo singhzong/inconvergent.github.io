@@ -1,4 +1,3 @@
-
 .global-hover {
   text-decoration: underline;
 }
@@ -42,27 +41,49 @@ h4, h5, h6 {
 }
 
 p {
-  margin-bottom: 2rem;
-  margin-top: 0;
+  margin: 0.5rem 0 2rem 0;
 }
 
-ul, ol, dl {
+ul {
+  -webkit-margin-before: 1rem;
+  -webkit-margin-after: 1rem;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-start: 40px;
   margin-top: 0;
   margin-bottom: 1rem;
+  display: block;
+  list-style-type: disc;
 }
 
+dl {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  display: block;
+  -webkit-padding-start: 40px;
+}
 dt {
+  @extend .heading-font;
+  float: left;
+  clear: left;
+  text-align: left;
   font-weight: bold;
+  &:after{
+    content: ":";
+  }
 }
-
 dd {
-  margin-bottom: .5rem;
+  margin: 0 0 .5rem 0;
+  clear: left;
 }
 
-hr {
-  position: relative;
-  margin: 1.5rem 0;
-  border: 0;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #fff;
+dl.named-links {
+  dt {
+    width: 280px;
+  }
+  dd {
+    @media (min-width:801px) {
+      clear: none;
+    }
+  }
 }
