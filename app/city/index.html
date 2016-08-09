@@ -1,26 +1,31 @@
+---
+redirect_from:
+  - /city
+  - /city/
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Inconvergent - Pillars</title>
+<title>Inconvergent - city</title>
 
 <meta name="twitter:card" content="photo">
 <meta name="twitter:site" content="@inconvergent">
 <meta name="twitter:creator" content="@inconvergent">
-<meta name="twitter:url" content="http://inconvergent.net/pillars/">
-<meta name="twitter:title" content="Inconvergent - Pillars">
-<meta name="twitter:description" content="Pillars, a WebGL experiment">
-<meta name="twitter:image" content="http://inconvergent.net/pillars/img/img.jpg">
+<meta name="twitter:url" content="http://inconvergent.net/city/">
+<meta name="twitter:title" content="Inconvergent - city">
+<meta name="twitter:description" content="City, a WebGL experiment">
+<meta name="twitter:image" content="http://inconvergent.net/city/img/img.jpg">
 <meta name="twitter:image:width" content="800">
 <meta name="twitter:image:height" content="800">
 
-<meta property="og:title" content="Inconvergent - Pillars" />
-<meta property="og:site_name" content="Inconvergent - Pillars" />
-<meta property="og:url" content="http://inconvergent.net/pillars/" />
-<meta property="og:image" content="http://inconvergent.net/pillars/img/img.jpg" />
+<meta property="og:title" content="Inconvergent - City" />
+<meta property="og:site_name" content="Inconvergent - City" />
+<meta property="og:url" content="http://inconvergent.net/city/" />
+<meta property="og:image" content="http://inconvergent.net/city/img/img.jpg" />
 <meta property="og:type" content="website" />
-<meta property="og:description" content="Pillars, a WebGL experiment" />
-<meta name="description" content="Pillars, a WebGL experiment" />
+<meta property="og:description" content="City, a WebGL experiment" />
+<meta name="description" content="City, a WebGL experiment" />
 
 <meta name="author" content="Inconvergent, Anders Hoff" />
 <meta name="keywords" content="generative,art,animation,inconvergent,computational,webgl"/>
@@ -63,7 +68,7 @@ table {
 
 body{
   background-color: #FFF;
-  color: #000;
+  color: #FFF;
   padding: 0px;
   margin: 0px;
   font-family: 'Droid Sans', sans-serif;
@@ -77,6 +82,7 @@ body{
   -ms-user-select: none;
   user-select: none;
   overflow: hidden;
+  cursor: pointer;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -107,7 +113,7 @@ strong { font-weight: bold; }
   opacity: 0.9;
 }
 hr{
-  color: #000;
+  color: #AAA;
 }
 .content {
   min-width: 100px;
@@ -117,19 +123,20 @@ hr{
   margin: 0 auto;
 }
 a, a.active, a.visited, a.hover{
-  color: #000;
+  color: #AAA;
   text-decoration: none;
 }
 </style>
 
-<script src="lib/jquery-1.11.2.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="lib/three.min.js"></script>
 <script src="lib/Detector.js"></script>
 <script src="lib/stats.min.js"></script>
 <script src="lib/ndarray.js"></script>
-<script src="lib/OrbitControls.js"></script>
-<script src="src/landscape.js"></script>
-<script src="src/pillars.js"></script>
+<script src="lib/delaunay.js"></script>
+<script src="color/color2.js"></script>
+<script src="src/random.js"></script>
+<script src="src/city.js"></script>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -144,13 +151,13 @@ a, a.active, a.visited, a.hover{
 </head>
 <body>
 <div class="content">
-  <div class="message">
-    <h1 class="h2"><strong>Pillars</strong></h1>
-    <div>
-      <strong>Use mouse to navigate</strong><br><hr>
-      <a href="http://inconvergent.net">inconvergent.net</a>
-    </div>
-  </div>
+  <!--<div class="message">-->
+    <!--<h1 class="h2"><strong>City</strong></h1>-->
+    <!--<div>-->
+      <!--<strong>Tap er click to restart</strong><br><hr>-->
+      <!--<a href="http://inconvergent.net">inconvergent.net</a>-->
+    <!--</div>-->
+  <!--</div>-->
   <div id="box"></div>
 </div>
 <script src="src/main.js"></script>
