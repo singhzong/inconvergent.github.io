@@ -13,7 +13,18 @@ description: Gallery of generative art by Anders Hoff.
 <div class="gallery">
 
   {% for i in site.gallery_images %}
-    <img class="painting" src="{{ i[0] }}" title="{{ i[1] }}" alt="{{ i[1] }}">
+    <img class="painting" src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="{{ i[0] }}" title="{{ i[1] }}" alt="{{ i[1] }}">
   {% endfor %}
+
+  <!--https://varvy.com/pagespeed/defer-images.html-->
+  <script>
+  function init() {
+  var imgDefer = document.getElementsByTagName('img');
+  for (var i=0; i<imgDefer.length; i++) {
+  if(imgDefer[i].getAttribute('data-src')) {
+  imgDefer[i].setAttribute('src',imgDefer[i].getAttribute('data-src'));
+  } } }
+  window.onload = init;
+  </script>
 
 </div>

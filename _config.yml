@@ -28,6 +28,7 @@ generative-title: 'On Generative Algorithms'
 store-title: 'Store'
 
 gallery_images:
+  '/img/spline-circle.jpg': 'sand splines 2'
   '/img/creatures.jpg': 'sand creatures'
   '/img/ello-mesh3.jpg': 'differential mesh 1'
   '/img/ello-mesh2.jpg': 'differential mesh 2'
