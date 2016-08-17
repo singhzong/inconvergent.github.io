@@ -87,3 +87,8 @@ dl.named-links {
     }
   }
 }
+
+ul.link-list {
+  @extend .heading-font;
+  list-style: none;
+}

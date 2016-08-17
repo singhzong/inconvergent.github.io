@@ -1,0 +1,124 @@
+---
+layout: default
+title: On Generative Algorithms - Differential Lattice
+description: Differential Lattice, generative algorithm.
+---
+
+<div class="text">
+
+  <h1 class="fade">{{ site.generative-title }}</h1>
+
+  <h2>Differential Lattice
+    <a class="ghlink"
+      href="https://github.com/inconvergent/differential-lattice">Github</a>
+  </h2>
+
+  <p>When working on <a href="../differential-line/">Differential Line</a>, <a
+      href="../differential-mesh/">Differential Mesh</a> and <a
+      href="../differential-mesh-3d/">Differential Mesh 3d</a> the most tedious
+    part was managing the data structure. Partly because I decided to try to
+    learn to use the <a
+      href="https://en.wikipedia.org/wiki/Doubly_connected_edge_list">half-edge</a>
+    data structure properly in the process. Partly because I failed to do just
+    that.  And finally because I was writing it in <a
+      href="http://cython.org/">Cython</a>, which was new to me at the
+    time.</p>
+
+  <p>Regardless of all of this I got there eventually. However, this process
+    also led me to wish for a more loosely connected system. It felt to me like
+    such a system would be more easy to manage. I also had the idea that such a
+    system could be similar to <a
+      href="https://en.wikipedia.org/wiki/Slime_mold">slime mold</a>, in the
+    same way that <a href="../differential-mesh/">Differential Mesh</a> is more
+    or less recognizable as <a
+      href="https://en.wikipedia.org/wiki/Lichen">lichen</a>.</p>
+
+  <p>With this in mind I started Differential Lattice. Part of the algorithm is
+    very similar to <a href="../differential-mesh/">Differential Mesh</a>; it
+    consists of connected nodes, and the connected nodes attempt to remain
+    close together. It also shares the behaviour where each node tries to avoid
+    all non-connected nodes within a certain radius. The important difference
+    is that the connections between nodes is re-calculated <em>before every
+      iteration</em>. This means that we need nice way of deciding whether
+    two nearby nodes should be neighbors or not.</p>
+
+  <p>It turns out that <a
+      href="https://en.wikipedia.org/wiki/Relative_neighborhood_graph">Relative
+      neighborhoods</a> work well for this. Relative neighborhoods are
+    introduced in the previously mentioned <a
+      href="http://algorithmicbotany.org/papers/venation.sig2005.pdf">leaf
+      venation algorithm</a>. Somewhat simplified we can say that two nodes are
+    relative neighbors if a <em>sufficiently large</em> area between the two
+    nodes does not contain any other nodes.</p>
+
+</div>
+
+<div class="text-img">
+  <img src="/img/generative/difflat.gif" alt="differential lattice ani" title="differential lattice ani"/>
+</div>
+
+<div class="text">
+
+<p>Another thing to consider in this system is how new nodes are introduced. In
+  <a href="../differential-mesh/">Differential Mesh</a> new nodes are
+  introduced by splitting edges in half. This is one of the somewhat tedious
+  processes of a half-edge data structure. Especially if you have stubbornly
+  implemented your own version of the data structure, like me. In a loosely
+  connected system, such as Differential Lattice, adding a new node is simply a
+  matter deciding on a position, introducing the node, and recalculating the
+  neighborhoods, as you would in any step of the simulation.</p>
+
+<p>Because of this, the challenge is reduced to deciding where to place the new
+  nodes, and how often new nodes should appear. In these examples new nodes
+  appear in areas where the local density of nodes is sufficiently low. This
+  causes new nodes to largely appear on the <em>outside</em> of the existing
+  structure. In a manner somewhat similar to slime mold which is gradually
+  growing outwards.</p>
+
+<p>So far this system does not have any kind of food distribution, which is an
+  interesting aspect to explore at a later time. E.g. is this simple system
+  somehow able to replicate the <a
+    href="https://www.youtube.com/watch?v=GwKuFREOgmo">Tokyo Railway System</a>
+  or display other kinds of interesting behaviours?</p>
+
+</div>
+
+<div class="text-img">
+  <img src="/img/generative/difflat-3.gif" alt="differential lattice ani 2" title="differential lattice ani 2"/>
+</div>
+
+<div class="text">
+
+<p>This system is is implemented using <a
+    href="https://documen.tician.de/pycuda/">pyCUDA</a>, which means that all
+  distance calculations, and neighborhood calculations can be done on the GPU.
+  Because of this it is probably one of the fastest algorithms I have ever
+  implemented. It is possible to make systems with hundreds of thousands of
+  nodes surprisingly quickly considering the amount of computation
+  involved.</p>
+
+<p>Below is an image with about 80 000 nodes which has been plotted on my
+  mechanical plotter. This drawing is available in my <a
+    href="http://store.inconvergent.net/product/differential-lattice-plot-l">web
+    shop</a>.</p>
+
+</div>
+
+<div class="text-img">
+  <a
+    href="http://store.inconvergent.net/product/differential-lattice-plot-l"><img
+    src="/img/generative/difflat-plot.jpg" alt="differential lattice"
+    title="differential lattice"/></a>
+</div>
+
+<div class="text">
+
+  <p>This text is still in progress, and I hope to add several more sections
+    eventually.  In the meantime, I regularly post things I'm working on at <a
+      href="https://twitter.com/inconvergent">@inconvergent</a>. I have also
+    started a web shop where I sell drawings made with my mechanical plotters:
+    <a href="http://store.inconvergent.net">store.inconvergent.net</a>.</p>
+
+  <a class="prev" href="../sand-spline">Previous: Sand Spline</a>
+</div>
+
