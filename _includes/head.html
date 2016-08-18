@@ -8,21 +8,13 @@
 <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ site.baseurl }}/public/apple-touch-icon-precomposed.png">-->
 <link rel="shortcut icon" href="{{ site.baseurl }}/favicon.ico">
 
-<title>{% if page.title == "Home" %}
-  {{ site.title }} &middot; {{ site.tagline }}
-  {% else %}
-  {{ page.title }} &middot; {{ site.title }}
-  {% endif %}</title>
+<title>{% if page.title == "Home" %}{{ site.title }} &middot; {{ site.tagline }}{% else %}{{ page.title }} &middot; {{ site.title }}{% endif %}</title>
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@inconvergent">
 <meta name="twitter:creator" content="@inconvergent">
 <meta name="twitter:url" content="http://inconvergent.net">
-<meta name="twitter:title" content="{% if page.title == "Home" %}
-{{ site.title }} &middot; {{ site.tagline }}
-{% else %}
-{{ page.title }} &middot; {{ site.title }}
-{% endif %}">
+<meta name="twitter:title" content="{% if page.title == "Home" %}{{ site.title }} &middot; {{ site.tagline }}{% else %}{{ page.title }} &middot; {{ site.title }}{% endif %}">
 <meta name="twitter:description" content="{{ page.description }}">
 <meta name="twitter:image1" content="http://inconvergent.net/img/ello-mesh5.jpg">
 <meta name="twitter:image0" content="http://inconvergent.net/img/ello-line.jpg">
@@ -30,11 +22,7 @@
 <meta name="twitter:image3" content="http://inconvergent.net/img/fracture_a.jpg">
 <meta name="twitter:domain" content="inconvergent.net">
 
-<meta property="og:title" content="{% if page.title == "Home" %}
-{{ site.title }} &middot; {{ site.tagline }}
-{% else %}
-{{ page.title }} &middot; {{ site.title }}
-{% endif %}" />
+<meta property="og:title" content="{% if page.title == "Home" %}{{ site.title }} &middot; {{ site.tagline }}{% else %}{{ page.title }} &middot; {{ site.title }}{% endif %}" />
 <meta property="og:site_name" content="inconvergent" />
 <meta property="og:url" content="http://inconvergent.net/" />
 <meta property="og:image" content="http://inconvergent.net/img/ello-mesh5.jpg" />
