@@ -1,0 +1,75 @@
+---
+layout: default
+title: On Generative Algorithms - Sand Creatures
+description: Sand Creatures, generative algorithm.
+---
+
+<div class="text">
+
+  <h1 class="fade">{{ site.generative-title }}</h1>
+
+  <h2>Sand Creatures
+    <a class="ghlink"
+      href="https://github.com/inconvergent/sand-creatures">Github</a>
+  </h2>
+
+  <p>When working on <a href="../sand-spline">Sand Spline</a> I got a few
+    intermediary results that reminded me of cursive hand writing. Instead of
+    directly attempting to make something that looked like writing, I started
+    playing with generating small "Sand Creatures".</p>
+
+  <p>I tried a few different things, but what produced the most pleasing
+    results was the following procedure:
+
+    <ul>
+      <li>Generate several random control points from a uniform distribution
+        confined to a sphere.</li>
+      <li>Place them in an arbitrary order</li>
+      <li>Create a <a
+          href="https://en.wikipedia.org/wiki/B-spline">B-spline</a> from the
+        control points in this order.</li>
+    </ul>
+  </p>
+
+</div>
+
+<div class="text-img">
+  <img
+    src="/img/generative/sand-creatures.jpg" alt="sand creatures"
+    title="sand creatures"/></a>
+</div>
+
+<div class="text">
+
+  <p>In order to add some texture to the shapes I make another spline by
+    cloning the first set of control points, and offsetting all of them
+    slightly at random. Then I use the previosly mentioned <a
+      href="http://www.complexification.net/gallery/machines/sandstroke/">sandstroke</a>
+    technique to draw straight lines between equally-spaced pints on the two
+    splines. This way you get a nice grainy feeling to the "creatures".</p>
+
+    <p>With a few changes you can also get quite different results, like the
+      example below.<p>
+
+</div>
+
+<div class="text-img">
+  <img src="/img/generative/sand-creatures-2.jpg" alt="sand creatures random
+  order" title="sand creatures random order"/></a>
+</div>
+
+<div class="text">
+
+  <p>The texture on these images would come out much better in a large print.
+    Unfortunately, such a print is not available at the moment. Instead you may
+    want to have a look at <a
+      href="https://ello.co/inconvergent/post/9zv1u-dt3bm3ffuszcosow">this
+      image</a> of higher resolution, before you move on to the next
+    section.</p>
+
+  <a class="prev" href="../differential-lattice">Previous: Differential
+    Lattice</a>
+  <a class="next" href="../sand-glyphs">Next: Sand Glyphs</a>
+
+</div>
+
