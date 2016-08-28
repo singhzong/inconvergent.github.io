@@ -1,12 +1,18 @@
 .text {
   margin: 0 auto;
-  padding: 0;
+  padding: 5px;
   text-align: left;
   width: $page-width-percent;
   max-width: $page-width;
   min-width: 320px;
   font-size: 1.3rem;
   line-height: 2.1rem;
+  @media (min-width:321px) {
+    padding: 0;
+  }
+  h1.dark a{
+    color: $head-color;
+  }
   h1.fade a{
     color: $light-color;
     &:before{
