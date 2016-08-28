@@ -83,10 +83,18 @@ a.ghlink:before{
 .next {
   @extend .paginator;
   float: right;
+  text-align: right;
+  &:before{
+    content: "Next: \A";
+  }
 }
 .prev {
   @extend .paginator;
   float: left;
+  text-align: left;
+  &:before{
+    content: "Previous: ";
+  }
 }
 
 #box {
