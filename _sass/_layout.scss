@@ -7,8 +7,11 @@
   min-width: 320px;
   font-size: 1.3rem;
   line-height: 2.1rem;
-  .fade {
+  h1.fade a{
     color: $light-color;
+    &:before{
+      content: "<";
+    }
   }
   h1, h2, h3, h4, h5, h6{
     @extend .heading-font;

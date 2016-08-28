@@ -24,7 +24,7 @@ pages_list:
   Store: 'http://store.inconvergent.net'
   About: '#about'
 
-generative-title: 'On Generative Algorithms'
+generative-title: '<a href="/generative/">On Generative Algorithms</a>'
 store-title: 'Store'
 
 gallery_images:
