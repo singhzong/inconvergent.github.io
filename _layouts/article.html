@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+  {% include head.html %}
+
+  </head>
+
+  <body>
+
+    <!--googleoff: all-->
+
+    <header>
+      <div class="text">
+        <nav>
+          <div class="site-title" id="about"><a href='/'>{{ site.title }}</a></div>
+        </nav>
+      </div>
+
+    </div>
+  </header>
+
+  <!--googleon: all-->
+
+  <main>
+
+  <article itemscope itemtype="http://schema.org/Article">
+
+  <meta itemprop="headline" content="{{ page.title }}">
+  <meta itemprop="datePublished" content="{{ page.datePublished }}" />
+  <meta itemprop="dateModified" content="{{ page.dateModified }}" />
+  <div itemscope itemprop="author" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Anders Hoff"/>
+  </div>
+  <div itemscope itemprop="publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Anders Hoff"/>
+  </div>
+
+  <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+    <meta itemprop="url" content="http://inconvergent.net{{ page.headerImage }}">
+    <meta itemprop="width" content="800">
+    <meta itemprop="height" content="800">
+  </div>
+
+  {{ content }}
+
+  </article>
+
+  </main>
+
+  <!--googleoff: all-->
+
+  <footer class="footer">
+    <small>
+      Copyright Anders Hoff
+    </small>
+  </footer>
+
+  {% include font.html %}
+
+</body>
+
+
+</html>
