@@ -41,8 +41,7 @@
       </div>
     </header>
 
-    <main>
-
+    <main itemscope itemtype="http://schema.org/Person">
 
       <div class="below">
         <div class="text">
@@ -55,9 +54,10 @@
 
           <!--googleon: all-->
 
-          <p>My name is Anders Hoff. I am a generative artist and programmer,
-            and I am fascinated by how interesting results you can get from
-            simple rules.</p>
+          <p>My name is <span itemprop="name">Anders Hoff</span>. I am a <span
+              itenprop="nationality">Norwegian</span> generative artist and
+            programmer, and I am fascinated by how interesting results you can
+            get from simple rules.</p>
 
           <p>You can read more about my work in this <a href="/generative/"
               onclick="ga('send', 'event', 'link', 'click', 'illustrated
@@ -71,8 +71,9 @@
           <dl class="named-links">
 
             <dt>Email</dt> <dd><a
-                href="mailto:inconvergent@gmail.com?Subject=generative-images" onclick="ga('send',
-                'event', 'link', 'click', 'Email');">inconvergent@gmail.com</a></dd>
+                href="mailto:inconvergent@gmail.com?Subject=generative-images"
+                onclick="ga('send', 'event', 'link', 'click', 'Email');"><span
+                  itemprop="email">inconvergent@gmail.com</span></a></dd>
             <dt>Frequent Questions</dt> <dd><a
                 href="/faq/" onclick="ga('send',
                 'event', 'link', 'click', 'faq');">FAQ</a></dd>
