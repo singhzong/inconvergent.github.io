@@ -1,130 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-    {% include head.html %}
+{% include head.html %}
 
-    <style>
-      html{
-        height: 100%;
-        background-image: url(img/frbg.jpg);
-        background-position: right bottom;
-        background-repeat: no-repeat;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-      }
-    </style>
+<style>
+  html{
+    height: 100%;
+    background-image: url(img/frbg.jpg);
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+</style>
 
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <header>
-      <div class="intro">
-        <span class="title">
-          <!--googleon: all-->
-          <h1 id='home'>{{ site.title }}</h1>
-          <h2>{{ site.tagline }}</h2>
-          <!--googleoff: all-->
-        </span>
+  <header>
+    <div class="intro">
+      <span class="title">
+        <!--googleon: all-->
+        <h1 id='home'>{{ site.title }}</h1>
+        <h2>{{ site.tagline }}</h2>
+        <!--googleoff: all-->
+      </span>
 
-        <nav>
-          <ul id="menu">
-            {% for page in site.pages_list %}
-            <li><a href="{{ page[1]  }}" onclick="ga('send', 'event', 'link', 'click', '{{ page[0] }}');">{{ page[0] }}</a></li>
-            {% endfor %}
-          </ul>
-        </nav>
-      </div>
-    </header>
+      <nav>
+        <ul id="menu">
+          {% for page in site.pages_list %}
+          <li><a href="{{ page[1]  }}" onclick="ga('send', 'event', 'link', 'click', '{{ page[0] }}');">{{ page[0] }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-    <main itemscope itemtype="http://schema.org/Person">
+  <!--googleon: all-->
 
-      <div class="below">
-        <div class="text">
+  {{ content }}
 
-          <nav>
-            <div class="site-title" id="about"><a href='#home'>{{ site.title }}</a></div>
-          </nav>
+  <!--googleoff: all-->
 
-          <h1>About</h1>
+  {% include font.html %}
 
-          <!--googleon: all-->
-
-          <meta itemprop="additionalName" content="inconvergent"/>
-          <meta itemprop="jobTitle" content="generative artist"/>
-          <meta itemprop="image" content="http://inconvergent.net/img/anders.jpg"/>
-          <meta itemprop="vatID" content="913038029"/>
-          <meta itemprop="birthDate" content="1987-03-08"/>
-          <meta itemprop="description" content="Anders Hoff is a generative
-          artist and programmer. He works with algorithms inspired by nature
-          and biology. Currently he lives and works in Oslo, Norway."/>
-
-          <p>My name is <span itemprop="name">Anders Hoff</span>. I am a <span
-              itenprop="nationality">Norwegian</span> generative artist and
-            programmer, and I am fascinated by how interesting results you can
-            get from simple rules.</p>
-
-          <p>You can read more about my work in this <a href="/generative/"
-              onclick="ga('send', 'event', 'link', 'click', 'illustrated
-              essay');">illustrated essay</a>. Or you can have a look at some
-            of my generative <a href="http://store.inconvergent.net"
-              onclick="ga('send', 'event', 'link', 'click', 'mechanical plotter
-              drawings');">mechanical plotter drawings</a>.</p>
-
-          <p>I am several places on the internet:</p>
-
-          <dl class="named-links">
-
-            <dt>Email</dt> <dd><a
-                href="mailto:inconvergent@gmail.com?Subject=generative-images"
-                onclick="ga('send', 'event', 'link', 'click', 'Email');"><span
-                  itemprop="email">inconvergent@gmail.com</span></a></dd>
-            <dt>Frequent Questions</dt> <dd><a
-                href="/faq/" onclick="ga('send',
-                'event', 'link', 'click', 'faq');">FAQ</a></dd>
-            <dt>Twitter</dt> <dd><a
-                href="https://twitter.com/inconvergent" onclick="ga('send',
-                'event', 'link', 'click', 'Twitter');">@inconvergent</a></dd>
-            <dt>Generative Twitter bot</dt> <dd><a
-                href="https://twitter.com/generativebot" onclick="ga('send',
-                'event', 'link', 'click', 'generativebot');">@generativebot</a></dd>
-            <dt>Web Shop</dt> <dd><a
-                href="http://store.inconvergent.net" onclick="ga('send',
-                'event', 'link', 'click', 'Store');">Bigcartel</a></dd>
-            <dt>Code</dt> <dd><a
-                href="https://github.com/inconvergent/" onclick="ga('send',
-                'event', 'link', 'click', 'Github');">Github</a></dd>
-            <dt>Works/Talks</dt> <dd><a
-                href="https://github.com/inconvergent/hire-me" onclick="ga('send',
-                'event', 'link', 'click', 'Resume');">Informal Résumé</a></dd>
-            <dt>Ello</dt> <dd><a
-                href="https://ello.co/inconvergent" onclick="ga('send',
-                'event', 'link', 'click', 'Ello');">inconvergent</a></dd>
-            <dt>Facebook</dt> <dd><a
-                href="https://facebook.com/inconvergent.net/" onclick="ga('send',
-                'event', 'link', 'click', 'facebook');">inconvergent</a></dd>
-          </dl>
-
-          <!--googleoff: all-->
-
-        </div>
-      </div>
-
-    </main>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-    <script>
-      WebFont.load({
-        google: {
-          families: ['Droid Sans', 'Droid Serif:700i,700', 'Open Sans Condensed:300']
-        }
-      });
-    </script>
-
-  </body>
+</body>
 
 </html>
