@@ -27,10 +27,16 @@ headerImage: /img/generative/fractures-b.png
 
 </div>
 
-<div class="text-img">
-
-  <img src="/img/generative/fractures-b.png" alt="fractures b" title="fractures b"/>
-
+<div class="text-img" itemscope itemtype="http://schema.org/VisualArtwork">
+  <meta itemprop="name" content="fractures b"/>
+  <meta itemprop="artMedium" content="digital"/>
+  <meta itemprop="artForm" content="generative"/>
+  <div itemprop="creator" itemscope itemtype="http://schema.org/Person"/>
+    <meta itemprop="name" content="Anders Hoff"/>
+    <meta itemprop="sameAs" content="http://inconvergent.net"/>
+  </div>
+  <img itemprop="image" src="/img/generative/fractures-b.png" alt="fractures b"
+  title="fractures b"/>
 </div>
 
 <div class="text">
@@ -50,24 +56,30 @@ headerImage: /img/generative/fractures-b.png
 
 </div>
 
-<div class="text-img">
-
-  <img src="/img/generative/fractures.gif" alt="fractures animation"
-  title="fractures animation"/>
+<div class="text-img" itemscope itemtype="http://schema.org/VisualArtwork">
+  <meta itemprop="name" content="fractures ani"/>
+  <meta itemprop="artMedium" content="digital"/>
+  <meta itemprop="artForm" content="generative"/>
+  <div itemprop="creator" itemscope itemtype="http://schema.org/Person"/>
+    <meta itemprop="name" content="Anders Hoff"/>
+    <meta itemprop="sameAs" content="http://inconvergent.net"/>
+  </div>
+  <img itemprop="image" src="/img/generative/fractures.gif" alt="fractures ani"
+  title="fractures ani"/>
 
 </div>
 
 <div class="text">
 
   <p>Similar to the method used in the leaf venation algorithm we distribute a
-    number of sources into the domain. We then start any number of seed fractures.
-    The following growth steps of these fractures are controlled in the following
-    way:</p>
+    number of sources into the domain. We then start any number of seed
+    fractures.  The following growth steps of these fractures are controlled in
+    the following way:</p>
 
   <ul>
     <li>Find all sources within a fracture's field of vision (FOV). Varying the
-      field of vision will yield very different results—greater FOV results in more
-      meandering.</li>
+      field of vision will yield very different results—greater FOV results in
+      more meandering.</li>
     <li>Calculate the (mass) centre of the sources in the FOV.</li>
     <li>Take a step towards the mass centre.</li>
     <li>We terminate the fracture if it has collided with an existing fracture,
@@ -75,27 +87,32 @@ headerImage: /img/generative/fractures-b.png
   </ul>
 
   <p>In addition to controlling the growth of the fractures, we need to add new
-    fractures. The strategy used in the images displayed here is to randomly spawn
-    new fractures from the tip of the fractures that are currently active (i.e.
-    have not yet collied with anything). Yet again the frequency of new fractures
-    will have a major impact on the final result.</p>
+    fractures. The strategy used in the images displayed here is to randomly
+    spawn new fractures from the tip of the fractures that are currently active
+    (i.e.  have not yet collied with anything). Yet again the frequency of new
+    fractures will have a major impact on the final result.</p>
 
   <p>If have ever seen a broken phone screen you might have noticed that the
-    fractures are rarely uniformly distributed: the density of fractures tends to
-    be greater  near the point of impact.  In order to fake this effect you can
-    introduce a fracturing speed. As a fracture grows the speed is gradually
-    reduced. When a fracture is spawn it inherits a fraction (e.g. 0.8) of it's
-    parent's current speed. In this case the fracturing speed is not used to
-    control the rate of growth, but rather the rate of spawned new fractures. The
-    effect looks like in the following image.</p>
+    fractures are rarely uniformly distributed: the density of fractures tends
+    to be greater  near the point of impact.  In order to fake this effect you
+    can introduce a fracturing speed. As a fracture grows the speed is
+    gradually reduced. When a fracture is spawn it inherits a fraction (e.g.
+    0.8) of it's parent's current speed. In this case the fracturing speed is
+    not used to control the rate of growth, but rather the rate of spawned new
+    fractures. The effect looks like in the following image.</p>
 
 </div>
 
-<div class="text-img">
-
-  <img src="/img/generative/fractures-a.png" alt="fractures a" title="fractures
-  a"/>
-
+<div class="text-img" itemscope itemtype="http://schema.org/VisualArtwork">
+  <meta itemprop="name" content="fractures a"/>
+  <meta itemprop="artMedium" content="digital"/>
+  <meta itemprop="artForm" content="generative"/>
+  <div itemprop="creator" itemscope itemtype="http://schema.org/Person"/>
+    <meta itemprop="name" content="Anders Hoff"/>
+    <meta itemprop="sameAs" content="http://inconvergent.net"/>
+  </div>
+  <img itemprop="image" src="/img/generative/fractures-a.png" alt="fractures a"
+  title="fractures a"/>
 </div>
 
 <div class="text">
